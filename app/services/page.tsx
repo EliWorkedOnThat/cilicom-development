@@ -41,9 +41,12 @@ export default function ServicesPage() {
                 id={s.id}
                 className="group grid scroll-mt-28 gap-8 border-b border-line py-14 md:grid-cols-[5rem_1fr_1fr] md:py-20 lg:grid-cols-[6rem_1.1fr_1fr_14rem]"
               >
-                <span className="font-mono text-sm text-ink-mute transition-colors group-hover:text-sky">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+                <div className="flex items-center justify-between md:block">
+                  <span className="font-mono text-sm text-ink-mute transition-colors group-hover:text-sky">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <ServiceGlyph id={s.id} className="h-14 w-auto opacity-80 md:hidden" />
+                </div>
                 <div>
                   <Reveal as="h2" className="text-3xl leading-tight font-semibold tracking-tight md:text-5xl">
                     {s.title}

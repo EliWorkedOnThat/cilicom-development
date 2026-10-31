@@ -115,3 +115,11 @@ html.lenis body {
     animation: none;
   }
 }
+
+/* Swipe rows on touch screens, without a visible scrollbar */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

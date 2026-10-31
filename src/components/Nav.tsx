@@ -46,6 +46,11 @@ export default function Nav() {
     { scope: menuRef },
   );
 
+  // Keep the page behind the open menu still
+  useEffect(() => {
+    document.documentElement.style.overflow = open ? "hidden" : "";
+  }, [open]);
+
   useEffect(() => {
     if (!tl.current) return;
     if (open) tl.current.timeScale(1).play();
@@ -61,7 +66,7 @@ export default function Nav() {
       >
         <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-5 md:px-10">
           <Link href="/" aria-label="cilicom, faqja kryesore" className="focus-ring relative z-10 text-[1.7rem]">
-            <Wordmark />
+            <Wordmark onSky={open} />
           </Link>
 
           <nav aria-label="Kryesore" className="hidden items-center gap-1 md:flex">
@@ -99,10 +104,12 @@ export default function Nav() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Mbyll menunë" : "Hap menunë"}
-            className="focus-ring relative z-10 flex size-11 flex-col items-center justify-center gap-1.5 rounded-full border border-line md:hidden"
+            className={`focus-ring relative z-10 flex size-11 flex-col items-center justify-center gap-1.5 rounded-full border transition-colors duration-500 md:hidden ${
+              open ? "border-navy/30" : "border-line"
+            }`}
           >
-            <span className={`h-px w-5 bg-ink transition-transform duration-300 ${open ? "translate-y-[3.5px] rotate-45" : ""}`} />
-            <span className={`h-px w-5 bg-ink transition-transform duration-300 ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`} />
+            <span className={`h-px w-5 transition-all duration-300 ${open ? "translate-y-[3.5px] rotate-45 bg-navy" : "bg-ink"}`} />
+            <span className={`h-px w-5 transition-all duration-300 ${open ? "-translate-y-[3.5px] -rotate-45 bg-navy" : "bg-ink"}`} />
           </button>
         </div>
       </header>
@@ -119,17 +126,29 @@ export default function Nav() {
               <Link
                 href={l.href}
                 tabIndex={open ? 0 : -1}
-                className="menu-link flex items-baseline gap-4 py-1 text-[2.6rem] leading-tight font-semibold tracking-tight"
+                aria-current={pathname === l.href ? "page" : undefined}
+                className="menu-link flex items-baseline gap-4 py-1.5 text-[2.6rem] leading-tight font-semibold tracking-tight"
               >
                 <span className="font-mono text-sm font-normal opacity-60">0{i + 1}</span>
                 {l.label}
+                {pathname === l.href && <span className="size-2.5 self-center rounded-full bg-navy" />}
               </Link>
             </div>
           ))}
         </nav>
-        <a href="mailto:team@cilicom.net" tabIndex={open ? 0 : -1} className="font-mono text-sm">
-          team@cilicom.net
-        </a>
+        <div className="space-y-5">
+          <Link
+            href="/contact#brief"
+            tabIndex={open ? 0 : -1}
+            className="flex items-center justify-between rounded-full bg-navy py-3.5 pr-3.5 pl-7 text-lg font-semibold text-ink"
+          >
+            Fillojmë një projekt
+            <span className="grid size-9 place-items-center rounded-full bg-sky text-navy">↗</span>
+          </Link>
+          <a href="mailto:team@cilicom.net" tabIndex={open ? 0 : -1} className="block font-mono text-sm">
+            team@cilicom.net
+          </a>
+        </div>
       </div>
     </>
   );

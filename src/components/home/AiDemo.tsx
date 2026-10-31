@@ -37,7 +37,7 @@ export default function AiDemo() {
       }
 
       gsap
-        .timeline({ scrollTrigger: { trigger: ".ai-window", start: "top 70%", once: true } })
+        .timeline({ scrollTrigger: { trigger: ".ai-window", start: "top 70%", toggleActions: "restart none none reset" } })
         .to(q, { text: question, duration: question.length * 0.035, ease: "none" })
         .fromTo(".ai-tool", { x: -8 }, { autoAlpha: 1, x: 0, duration: 0.4, stagger: 0.55, ease: "power2.out" }, "+=0.3")
         .fromTo(".ai-answer", { y: 8 }, { autoAlpha: 1, y: 0, duration: 0.5 }, "+=0.4")
