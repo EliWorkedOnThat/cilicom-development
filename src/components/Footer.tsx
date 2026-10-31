@@ -7,12 +7,11 @@ export default function Footer() {
       {/* Oversized wordmark sitting behind the content, fading out toward the top */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 -bottom-[7vw] select-none text-center leading-[0.78] [mask-image:linear-gradient(to_bottom,transparent,black_45%)] md:-bottom-[3vw] md:leading-none"
+        className="pointer-events-none absolute inset-x-0 -bottom-[4vw] select-none text-center leading-none [mask-image:linear-gradient(to_bottom,transparent,black_45%)] md:-bottom-[3vw]"
       >
-        {/* Stacked on phones so it fills the lower half, one line on wider screens */}
-        <p className="text-[50vw] font-bold tracking-[-0.06em] lowercase md:text-[24vw]">
-          <span className="block text-ink/[0.06] md:inline">cili</span>
-          <span className="block text-sky/20 md:inline">com</span>
+        <p className="text-[29vw] font-bold tracking-[-0.06em] whitespace-nowrap lowercase md:text-[24vw]">
+          <span className="text-ink/[0.07]">cili</span>
+          <span className="text-sky/25">com</span>
         </p>
       </div>
       <div aria-hidden="true" className="pointer-events-none absolute -bottom-40 left-1/2 h-80 w-[80%] -translate-x-1/2 rounded-full bg-sky/10 blur-[120px]" />
@@ -77,8 +76,13 @@ export default function Footer() {
       </div>
 
       {/* Bottom row, with room underneath for the wordmark to show through */}
-      <div className="relative mx-auto mt-14 flex max-w-7xl items-center justify-between gap-4 px-5 pb-[12vw] font-mono text-xs text-ink-mute md:mt-20 md:px-10 md:pb-[9vw]">
-        <span>© 2026 cilicom</span>
+      <div className="relative mx-auto mt-14 flex max-w-7xl items-center justify-between gap-4 px-5 pb-[16vw] font-mono text-xs text-ink-mute md:mt-20 md:px-10 md:pb-[9vw]">
+        <span className="flex flex-wrap items-center gap-x-4 gap-y-1">
+          <span>© 2026 cilicom</span>
+          <a href="/sitemap.xml" className="focus-ring py-2 transition-colors hover:text-sky">
+            Sitemap
+          </a>
+        </span>
         <a
           href="#top"
           className="focus-ring group flex items-center gap-2 rounded-full border border-line px-4 py-2.5 text-ink-soft transition-colors hover:border-sky hover:text-sky"
