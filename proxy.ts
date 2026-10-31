@@ -1,9 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { albanianCountries, defaultLocale, hasLocale, LOCALE_COOKIE, type Locale } from "@/src/i18n/config";
 
-const COUNTRY_COOKIE = "country";
-const YEAR = 60 * 60 * 24 * 365;
-
 // Hosts like Vercel and Cloudflare already put the visitor's country in a header
 function countryFromHeaders(req: NextRequest) {
   return (
@@ -14,28 +11,6 @@ function countryFromHeaders(req: NextRequest) {
   );
 }
 
-function clientIp(req: NextRequest) {
-  const forwarded = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-  return forwarded || req.headers.get("x-real-ip") || null;
-}
-
-// Loopback, private and Tailscale ranges can't be geolocated
-const isPrivateIp = (ip: string) =>
-  /^(127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|100\.(6[4-9]|[7-9]\d|1[01]\d|12[0-7])\.|::1$|fc|fd|fe80)/i.test(ip);
-
-// Self-hosted fallback: ask country.is (free, open source) once per visitor.
-// The result is kept in a cookie so the lookup doesn't repeat.
-async function lookupCountry(ip: string) {
-  try {
-    const res = await fetch(`https://api.country.is/${encodeURIComponent(ip)}`, { signal: AbortSignal.timeout(800) });
-    if (!res.ok) return null;
-    const data = (await res.json()) as { country?: string };
-    return data.country ?? null;
-  } catch {
-    return null;
-  }
-}
-
 function localeFromAcceptLanguage(req: NextRequest): Locale | null {
   const header = req.headers.get("accept-language");
   if (!header) return null;
@@ -44,7 +19,7 @@ function localeFromAcceptLanguage(req: NextRequest): Locale | null {
   return first ? "en" : null;
 }
 
-export async function proxy(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const segment = pathname.split("/")[1] ?? "";
   if (hasLocale(segment)) return;
@@ -53,16 +28,8 @@ export async function proxy(req: NextRequest) {
   const saved = req.cookies.get(LOCALE_COOKIE)?.value;
   let locale: Locale | null = saved && hasLocale(saved) ? saved : null;
 
-  // 2. Country from the host's header, a cached lookup, or a fresh IP lookup
-  let country = countryFromHeaders(req) ?? req.cookies.get(COUNTRY_COOKIE)?.value ?? null;
-  let looked = false;
-  if (!locale && !country) {
-    const ip = clientIp(req);
-    if (ip && !isPrivateIp(ip)) {
-      country = await lookupCountry(ip);
-      looked = true;
-    }
-  }
+  // 2. Country, when the host provides it (Vercel, Cloudflare, CloudFront)
+  const country = countryFromHeaders(req);
   if (!locale && country) locale = albanianCountries.includes(country.toUpperCase()) ? "sq" : "en";
 
   // 3. Browser language, then the default
@@ -70,9 +37,7 @@ export async function proxy(req: NextRequest) {
 
   const url = req.nextUrl.clone();
   url.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
-  const res = NextResponse.redirect(url);
-  if (looked && country) res.cookies.set(COUNTRY_COOKIE, country, { maxAge: YEAR, path: "/", sameSite: "lax" });
-  return res;
+  return NextResponse.redirect(url);
 }
 
 export const config = {
