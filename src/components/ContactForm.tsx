@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { services } from "@/src/content/services";
-import { EMAIL, timelines, budgets } from "@/src/content/contact";
+import { EMAIL } from "@/src/content/contact";
+import { useI18n } from "@/src/i18n/I18nProvider";
 import ServiceGlyph from "./ServiceGlyph";
 
 type Brief = {
@@ -48,6 +48,9 @@ function Chip({ on, onClick, children }: { on: boolean; onClick: () => void; chi
 
 // No backend yet: the brief is composed into an email and handed to the visitor's mail app.
 export default function ContactForm() {
+  const { t: dict } = useI18n();
+  const t = dict.form;
+  const services = dict.services;
   const [b, setB] = useState<Brief>(empty);
   const [sent, setSent] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
@@ -77,15 +80,15 @@ export default function ContactForm() {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const details = [
-      `Emri: ${b.name}`,
-      `Email: ${b.email}`,
-      b.company && `Kompania: ${b.company}`,
-      b.services.length > 0 && `Shërbimet: ${b.services.join(", ")}`,
-      b.timeline && `Afati: ${b.timeline}`,
-      b.budget && `Buxheti: ${b.budget}`,
+      `${t.mail.name}: ${b.name}`,
+      `${t.mail.email}: ${b.email}`,
+      b.company && `${t.mail.company}: ${b.company}`,
+      b.services.length > 0 && `${t.mail.services}: ${b.services.join(", ")}`,
+      b.timeline && `${t.mail.timeline}: ${b.timeline}`,
+      b.budget && `${t.mail.budget}: ${b.budget}`,
     ].filter(Boolean);
     const body = `${details.join("\n")}\n\n${b.message}`;
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(`Projekt i ri: ${b.name}`)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(`${t.mail.subject}: ${b.name}`)}&body=${encodeURIComponent(body)}`;
     setSent(true);
   };
 
@@ -97,7 +100,7 @@ export default function ContactForm() {
   return (
     <div className="grid gap-14 lg:grid-cols-[1.35fr_0.65fr] lg:gap-16">
       <form ref={formRef} id="brief-form" onSubmit={onSubmit} className="space-y-14">
-        <Step n="01" title="Çfarë doni të ndërtoni?" hint="Zgjidhni një ose më shumë.">
+        <Step n="01" title={t.step1} hint={t.step1Hint}>
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
             {services.map((s) => {
               const on = b.services.includes(s.title);
@@ -132,45 +135,45 @@ export default function ContactForm() {
           </div>
         </Step>
 
-        <Step n="02" title="Kur ju duhet?">
+        <Step n="02" title={t.step2}>
           <div className="flex flex-wrap gap-2.5">
-            {timelines.map((t) => (
-              <Chip key={t} on={b.timeline === t} onClick={() => set("timeline", b.timeline === t ? "" : t)}>
-                {t}
+            {t.timelines.map((x) => (
+              <Chip key={x} on={b.timeline === x} onClick={() => set("timeline", b.timeline === x ? "" : x)}>
+                {x}
               </Chip>
             ))}
           </div>
         </Step>
 
-        <Step n="03" title="Buxheti i përafërt" hint="Na ndihmon të propozojmë zgjidhjen e duhur. Nuk ju detyron.">
+        <Step n="03" title={t.step3} hint={t.step3Hint}>
           <div className="flex flex-wrap gap-2.5">
-            {budgets.map((t) => (
-              <Chip key={t} on={b.budget === t} onClick={() => set("budget", b.budget === t ? "" : t)}>
-                {t}
+            {t.budgets.map((x) => (
+              <Chip key={x} on={b.budget === x} onClick={() => set("budget", b.budget === x ? "" : x)}>
+                {x}
               </Chip>
             ))}
           </div>
         </Step>
 
-        <Step n="04" title="Rreth jush">
+        <Step n="04" title={t.step4}>
           <div className="space-y-10">
             <div className="grid gap-10 md:grid-cols-2">
               <div className="relative">
                 <input id="name" required placeholder="Emri" autoComplete="name" value={b.name} onChange={(e) => set("name", e.target.value)} className={field} />
-                <label htmlFor="name" className={label}>Emri juaj *</label>
+                <label htmlFor="name" className={label}>{t.name}</label>
               </div>
               <div className="relative">
                 <input id="email" type="email" required placeholder="Email" autoComplete="email" value={b.email} onChange={(e) => set("email", e.target.value)} className={field} />
-                <label htmlFor="email" className={label}>Email *</label>
+                <label htmlFor="email" className={label}>{t.email}</label>
               </div>
             </div>
             <div className="relative">
               <input id="company" placeholder="Kompania" autoComplete="organization" value={b.company} onChange={(e) => set("company", e.target.value)} className={field} />
-              <label htmlFor="company" className={label}>Kompania</label>
+              <label htmlFor="company" className={label}>{t.company}</label>
             </div>
             <div className="relative">
               <textarea id="message" required rows={4} placeholder="Mesazhi" value={b.message} onChange={(e) => set("message", e.target.value)} className={`${field} resize-none`} />
-              <label htmlFor="message" className={label}>Na tregoni për idenë ose problemin *</label>
+              <label htmlFor="message" className={label}>{t.message}</label>
             </div>
           </div>
         </Step>
@@ -180,7 +183,7 @@ export default function ContactForm() {
       <aside ref={summaryRef} className="lg:sticky lg:top-28 lg:self-start">
         <div className="overflow-hidden rounded-3xl border border-line bg-navy-deep/70 shadow-[0_40px_120px_-50px_rgba(49,169,255,0.45)]">
           <div className="flex items-center justify-between border-b border-line px-6 py-4">
-            <span className="font-mono text-xs tracking-[0.2em] text-ink-mute uppercase">Brief-i juaj</span>
+            <span className="font-mono text-xs tracking-[0.2em] text-ink-mute uppercase">{t.summary}</span>
             <span className="font-mono text-xs text-sky">{progress}%</span>
           </div>
           <div className="h-px bg-line">
@@ -189,7 +192,7 @@ export default function ContactForm() {
 
           <dl className="space-y-5 px-6 py-6 text-sm">
             <div>
-              <dt className="font-mono text-xs text-ink-mute">Shërbimet</dt>
+              <dt className="font-mono text-xs text-ink-mute">{t.services}</dt>
               <dd className="mt-2 flex flex-wrap gap-1.5">
                 {b.services.length ? (
                   b.services.map((s) => (
@@ -204,23 +207,23 @@ export default function ContactForm() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <dt className="font-mono text-xs text-ink-mute">Afati</dt>
+                <dt className="font-mono text-xs text-ink-mute">{t.timeline}</dt>
                 <dd className={`mt-1.5 ${b.timeline ? "text-ink" : "text-ink-mute"}`}>{b.timeline || "—"}</dd>
               </div>
               <div>
-                <dt className="font-mono text-xs text-ink-mute">Buxheti</dt>
+                <dt className="font-mono text-xs text-ink-mute">{t.budget}</dt>
                 <dd className={`mt-1.5 ${b.budget ? "text-ink" : "text-ink-mute"}`}>{b.budget || "—"}</dd>
               </div>
             </div>
             <div>
-              <dt className="font-mono text-xs text-ink-mute">Kontakti</dt>
+              <dt className="font-mono text-xs text-ink-mute">{t.contact}</dt>
               <dd className={`mt-1.5 truncate ${b.name || b.email ? "text-ink" : "text-ink-mute"}`}>
                 {[b.name, b.company].filter(Boolean).join(" · ") || "—"}
                 {b.email && <span className="block truncate text-ink-soft">{b.email}</span>}
               </dd>
             </div>
             <div>
-              <dt className="font-mono text-xs text-ink-mute">Mesazhi</dt>
+              <dt className="font-mono text-xs text-ink-mute">{t.messageShort}</dt>
               <dd className={`mt-1.5 line-clamp-3 ${b.message ? "text-ink-soft" : "text-ink-mute"}`}>{b.message || "—"}</dd>
             </div>
           </dl>
@@ -228,8 +231,8 @@ export default function ContactForm() {
           <div className="border-t border-line p-6">
             {sent ? (
               <p className="text-center leading-relaxed text-ink-soft" role="status">
-                <span className="block text-lg font-semibold text-sky">Pothuajse gati!</span>
-                Email-i juaj u hap me brief-in e plotësuar. Thjesht shtypni Dërgo.
+                <span className="block text-lg font-semibold text-sky">{t.sentTitle}</span>
+                {t.sentBody}
               </p>
             ) : (
               <button
@@ -237,14 +240,14 @@ export default function ContactForm() {
                 form="brief-form"
                 className="focus-ring group flex w-full items-center justify-between rounded-full bg-sky py-3.5 pr-3.5 pl-7 text-lg font-semibold text-navy transition-colors hover:bg-sky-bright"
               >
-                Dërgo brief-in
+                {t.send}
                 <span className="grid size-9 place-items-center rounded-full bg-navy text-sky transition-transform duration-500 group-hover:rotate-45">
                   ↗
                 </span>
               </button>
             )}
             <p className="mt-4 text-center font-mono text-xs text-ink-mute">
-              ose direkt:{" "}
+              {t.orDirect}{" "}
               <a href={`mailto:${EMAIL}`} className="text-ink-soft underline-offset-4 hover:text-sky hover:underline">
                 {EMAIL}
               </a>
@@ -265,14 +268,14 @@ export default function ContactForm() {
         </div>
         <div className="flex items-center justify-between gap-4">
           <p className="font-mono text-xs text-ink-mute">
-            Brief-i <span className="text-sky">{progress}%</span>
+            {t.barLabel} <span className="text-sky">{progress}%</span>
           </p>
           <button
             type="submit"
             form="brief-form"
             className="focus-ring flex items-center gap-3 rounded-full bg-sky py-2.5 pr-2.5 pl-5 font-semibold text-navy"
           >
-            Dërgo
+            {t.sendShort}
             <span className="grid size-7 place-items-center rounded-full bg-navy text-sm text-sky">↗</span>
           </button>
         </div>

@@ -8,12 +8,14 @@ import { useGSAP } from "@gsap/react";
 import NetworkCanvas from "../NetworkCanvas";
 import Magnetic from "../Magnetic";
 import { EMAIL } from "@/src/content/contact";
+import { useI18n } from "@/src/i18n/I18nProvider";
 
 gsap.registerPlugin(SplitText, ScrambleTextPlugin);
 
 export default function ContactHero() {
   const root = useRef<HTMLElement>(null);
   const [copied, setCopied] = useState(false);
+  const t = useI18n().t.contactPage.hero;
 
   useGSAP(
     () => {
@@ -57,16 +59,16 @@ export default function ContactHero() {
             <span className="absolute inline-flex size-full animate-ping rounded-full bg-sky opacity-60" />
             <span className="relative inline-flex size-2.5 rounded-full bg-sky" />
           </span>
-          Pranojmë projekte të reja
+          {t.badge}
         </p>
 
         <h1 className="ch-title invisible text-[clamp(4rem,14vw,13rem)] leading-[0.88] font-semibold tracking-[-0.055em]">
-          Le të flasim<span className="text-sky">.</span>
+          {t.title}<span className="text-sky">.</span>
         </h1>
 
         <div className="mt-12 grid items-end gap-10 md:mt-16 md:grid-cols-[1fr_auto]">
           <div className="ch-fade invisible">
-            <p className="font-mono text-xs tracking-[0.2em] text-ink-mute uppercase">Na shkruani direkt</p>
+            <p className="font-mono text-xs tracking-[0.2em] text-ink-mute uppercase">{t.direct}</p>
             <div className="mt-3 flex flex-wrap items-center gap-4">
               <a
                 href={`mailto:${EMAIL}`}
@@ -80,7 +82,7 @@ export default function ContactHero() {
                   onClick={copy}
                   className="focus-ring rounded-full border border-line px-4 py-2 font-mono text-xs text-ink-soft transition-colors hover:border-sky hover:text-sky"
                 >
-                  <span aria-live="polite">{copied ? "U kopjua ✓" : "Kopjo"}</span>
+                  <span aria-live="polite">{copied ? t.copied : t.copy}</span>
                 </button>
               </Magnetic>
             </div>
@@ -91,9 +93,9 @@ export default function ContactHero() {
             className="ch-fade focus-ring group invisible flex items-center gap-4 text-ink-soft transition-colors hover:text-ink"
           >
             <span className="text-lg leading-snug md:text-right">
-              ose plotësoni
+              {t.briefLine1}
               <br />
-              brief-in e projektit
+              {t.briefLine2}
             </span>
             <span className="grid size-14 place-items-center rounded-full border border-line text-sky transition-all duration-500 group-hover:translate-y-1 group-hover:border-sky">
               ↓

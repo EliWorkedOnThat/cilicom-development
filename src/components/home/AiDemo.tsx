@@ -6,22 +6,14 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
 import { useGSAP } from "@gsap/react";
 import Reveal from "../Reveal";
+import { useI18n } from "@/src/i18n/I18nProvider";
 
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
-const question = "Sa fatura janë ende të papaguara këtë muaj?";
-const tools = ["kërkoj te sistemi i faturimit…", "filtroj: statusi = e papaguar, muaji = tetor", "llogaris totalin dhe afatet…"];
-const answer =
-  "Keni 12 fatura të papaguara, gjithsej 8,430 €. Tre prej tyre e kanë kaluar afatin. Dëshironi që t'u dërgoj klientëve një kujtesë?";
-
-const capabilities = [
-  { title: "Asistentë mbi të dhënat tuaja", body: "Pyetni sistemin në shqip dhe merrni përgjigje nga faturat, kontratat dhe raportet tuaja." },
-  { title: "Nxjerrje automatike", body: "Faturat, formularët dhe email-et kthehen vetë në të dhëna të strukturuara." },
-  { title: "Agjentë që veprojnë", body: "Jo vetëm përgjigje: AI dërgon kujtesa, plotëson regjistra dhe ju njofton kur duhet." },
-];
-
 export default function AiDemo() {
   const root = useRef<HTMLElement>(null);
+  const t = useI18n().t.home.ai;
+  const { question, tools, answer, capabilities } = t;
 
   useGSAP(
     () => {
@@ -56,12 +48,12 @@ export default function AiDemo() {
       />
       <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-5 md:px-10 lg:grid-cols-2">
         <div>
-          <p className="font-mono text-xs tracking-[0.2em] text-sky uppercase">03 — AI & LLM</p>
+          <p className="font-mono text-xs tracking-[0.2em] text-sky uppercase">{t.eyebrow}</p>
           <Reveal as="h2" className="mt-4 text-4xl leading-[1.02] font-semibold tracking-[-0.03em] md:text-6xl">
-            AI që e njeh biznesin tuaj.
+            {t.title}
           </Reveal>
           <Reveal as="p" mode="fade" className="mt-6 max-w-md text-lg leading-relaxed text-ink-soft">
-            Lidhim modelet më të avancuara të gjuhës me sistemet tuaja, në mënyrë të sigurt dhe nën kontrollin tuaj.
+            {t.body}
           </Reveal>
           <ul className="mt-10 space-y-6">
             {capabilities.map((c) => (
@@ -83,7 +75,7 @@ export default function AiDemo() {
               <span className="size-2.5 rounded-full bg-line" />
               <span className="size-2.5 rounded-full bg-sky" />
             </div>
-            <span className="font-mono text-xs text-ink-mute">asistenti · demo</span>
+            <span className="font-mono text-xs text-ink-mute">{t.window}</span>
           </div>
 
           <div className="min-h-[26rem] space-y-5 p-6 font-mono text-sm md:p-8">
@@ -106,14 +98,14 @@ export default function AiDemo() {
             </div>
 
             <div className="ai-actions invisible flex gap-2">
-              <span className="rounded-full bg-sky/15 px-3 py-1.5 text-xs text-sky">Po, dërgo kujtesat</span>
-              <span className="rounded-full border border-line px-3 py-1.5 text-xs text-ink-soft">Shfaq listën</span>
+              <span className="rounded-full bg-sky/15 px-3 py-1.5 text-xs text-sky">{t.actions[0]}</span>
+              <span className="rounded-full border border-line px-3 py-1.5 text-xs text-ink-soft">{t.actions[1]}</span>
             </div>
           </div>
         </div>
       </div>
       <p className="relative mx-auto mt-6 max-w-7xl px-5 text-right font-mono text-xs text-ink-mute md:px-10">
-        * Shembull ilustrues i një asistenti që ndërtojmë.
+        {t.note}
       </p>
     </section>
   );

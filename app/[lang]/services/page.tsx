@@ -3,26 +3,35 @@ import PageHeader from "@/src/components/PageHeader";
 import ServiceGlyph from "@/src/components/ServiceGlyph";
 import Reveal from "@/src/components/Reveal";
 import CallToAction from "@/src/components/CallToAction";
-import { services } from "@/src/content/services";
+import { notFound } from "next/navigation";
+import { getDictionary } from "@/src/i18n/dictionaries";
+import { hasLocale } from "@/src/i18n/config";
 
-export const metadata: Metadata = {
-  title: "Shërbimet",
-  description: "Sisteme menaxhimi, automatizim, aplikacione web, AI & LLM, aplikacione të personalizuara dhe mirëmbajtje.",
-};
+export async function generateMetadata({ params }: PageProps<"/[lang]/services">): Promise<Metadata> {
+  const { lang } = await params;
+  if (!hasLocale(lang)) return {};
+  const t = getDictionary(lang).servicesPage;
+  return { title: t.metaTitle, description: t.metaDescription };
+}
 
-export default function ServicesPage() {
+export default async function ServicesPage({ params }: PageProps<"/[lang]/services">) {
+  const { lang } = await params;
+  if (!hasLocale(lang)) notFound();
+  const dict = getDictionary(lang);
+  const t = dict.servicesPage;
+  const services = dict.services;
   return (
     <>
       <PageHeader
-        label="Shërbimet"
-        title="Tetë mënyra si e çojmë biznesin tuaj përpara."
-        intro="Disa klientë vijnë me një problem të qartë, të tjerë vetëm me një ndjesi që diçka mund të punojë më mirë. Të dyja janë pikënisje të mira."
+        label={t.label}
+        title={t.title}
+        intro={t.intro}
       />
 
       <section className="bg-navy pb-28">
         <div className="mx-auto max-w-7xl px-5 md:px-10">
           {/* Quick index */}
-          <nav aria-label="Lista e shërbimeve" className="mb-16 flex flex-wrap gap-2">
+          <nav aria-label={t.indexLabel} className="mb-16 flex flex-wrap gap-2">
             {services.map((s) => (
               <a
                 key={s.id}
@@ -73,7 +82,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <CallToAction title="Nuk e gjeni atë që kërkoni?" body="Shumica e projekteve tona nuk futen në një kuti të vetme. Na tregoni problemin, zgjidhjen e gjejmë bashkë." />
+      <CallToAction title={t.ctaTitle} body={t.ctaBody} />
     </>
   );
 }

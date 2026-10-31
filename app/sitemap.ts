@@ -1,15 +1,27 @@
 import type { MetadataRoute } from "next";
+import { locales } from "@/src/i18n/config";
 
 const site = "https://cilicom.net";
 const updated = "2026-10-31";
 
+const pages = [
+  { path: "", changeFrequency: "monthly", priority: 1 },
+  { path: "/services", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/projects", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/pricing", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/about", changeFrequency: "yearly", priority: 0.6 },
+  { path: "/contact", changeFrequency: "yearly", priority: 0.8 },
+] as const;
+
+// One entry per page and language, each listing its translations
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    { url: site, lastModified: updated, changeFrequency: "monthly", priority: 1 },
-    { url: `${site}/services`, lastModified: updated, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${site}/projects`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${site}/pricing`, lastModified: updated, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${site}/about`, lastModified: updated, changeFrequency: "yearly", priority: 0.6 },
-    { url: `${site}/contact`, lastModified: updated, changeFrequency: "yearly", priority: 0.8 },
-  ];
+  return pages.flatMap((p) =>
+    locales.map((lang) => ({
+      url: `${site}/${lang}${p.path}`,
+      lastModified: updated,
+      changeFrequency: p.changeFrequency,
+      priority: p.priority,
+      alternates: { languages: Object.fromEntries(locales.map((l) => [l, `${site}/${l}${p.path}`])) },
+    })),
+  );
 }

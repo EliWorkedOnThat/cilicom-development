@@ -1,12 +1,5 @@
-const rowA = [
-  "Sisteme menaxhimi",
-  "Automatizim",
-  "Aplikacione web",
-  "AI & LLM",
-  "Aplikacione të personalizuara",
-  "Transformim dixhital",
-  "Mirëmbajtje",
-];
+import type { Dictionary } from "@/src/i18n/dictionaries";
+
 const rowB = ["Next.js", "TypeScript", "React", "Node.js", "PostgreSQL", "Python", "OpenAI", "Claude", "Docker", "REST & GraphQL"];
 
 function Row({ items, reverse, muted }: { items: string[]; reverse?: boolean; muted?: boolean }) {
@@ -32,10 +25,10 @@ function Row({ items, reverse, muted }: { items: string[]; reverse?: boolean; mu
   );
 }
 
-export default function Marquee() {
+export default function Marquee({ t }: { t: Dictionary["home"]["marquee"] }) {
   return (
-    <section aria-label="Çfarë bëjmë" className="space-y-6 border-y border-line bg-navy py-10 md:py-14">
-      <Row items={rowA} />
+    <section aria-label={t.label} className="space-y-6 border-y border-line bg-navy py-10 md:py-14">
+      <Row items={t.items} />
       <Row items={rowB} reverse muted />
     </section>
   );

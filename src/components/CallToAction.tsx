@@ -6,18 +6,16 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Magnetic from "./Magnetic";
+import { useI18n } from "@/src/i18n/I18nProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
 // Closing band: the headline scales up as it scrolls in, on a sky backdrop.
-export default function CallToAction({
-  title = "Le ta ndërtojmë së bashku.",
-  body = "Na tregoni çfarë keni në mendje. Ju përgjigjemi brenda një dite pune.",
-}: {
-  title?: string;
-  body?: string;
-}) {
+export default function CallToAction({ title, body }: { title?: string; body?: string }) {
   const root = useRef<HTMLElement>(null);
+  const { t, href } = useI18n();
+  title ??= t.cta.title;
+  body ??= t.cta.body;
 
   useGSAP(
     () => {
@@ -56,10 +54,10 @@ export default function CallToAction({
             <p className="max-w-md text-xl leading-relaxed text-navy/75">{body}</p>
             <Magnetic className="self-start">
               <Link
-                href="/contact"
+                href={href("/contact")}
                 className="group inline-flex items-center gap-4 rounded-full bg-navy py-5 pr-5 pl-9 text-xl font-semibold text-ink transition-transform focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy"
               >
-                Fillojmë
+                {t.cta.button}
                 <span className="grid size-11 place-items-center rounded-full bg-sky text-navy transition-transform duration-500 group-hover:rotate-45">
                   ↗
                 </span>

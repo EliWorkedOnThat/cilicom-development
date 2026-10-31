@@ -6,7 +6,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { useGSAP } from "@gsap/react";
-import { services } from "@/src/content/services";
+import { useI18n } from "@/src/i18n/I18nProvider";
 import ServiceGlyph from "../ServiceGlyph";
 import Reveal from "../Reveal";
 
@@ -18,6 +18,9 @@ export default function ServicesRail() {
   const root = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const [current, setCurrent] = useState(0);
+  const { t: dict, href } = useI18n();
+  const t = dict.home.rail;
+  const services = dict.services;
 
   const onSwipe = () => {
     const el = track.current!;
@@ -98,13 +101,13 @@ export default function ServicesRail() {
     <section ref={root} className="relative overflow-hidden bg-navy py-24 lg:flex lg:h-dvh lg:flex-col lg:justify-center lg:py-0">
       <div className="mx-auto mb-12 flex w-full max-w-7xl flex-wrap items-end justify-between gap-6 px-5 md:px-10 lg:mb-14">
         <div>
-          <p className="font-mono text-xs tracking-[0.2em] text-sky uppercase">01 — Shërbimet</p>
+          <p className="font-mono text-xs tracking-[0.2em] text-sky uppercase">{t.eyebrow}</p>
           <Reveal as="h2" className="mt-4 max-w-2xl text-4xl leading-[1.02] font-semibold tracking-[-0.03em] md:text-6xl">
-            Çdo gjë që i duhet biznesit tuaj dixhital.
+            {t.title}
           </Reveal>
         </div>
-        <Link href="/services" className="focus-ring font-mono text-sm text-ink-soft transition-colors hover:text-sky">
-          Të gjitha shërbimet →
+        <Link href={href("/services")} className="focus-ring font-mono text-sm text-ink-soft transition-colors hover:text-sky">
+          {t.all}
         </Link>
       </div>
 
@@ -146,7 +149,7 @@ export default function ServicesRail() {
         <div className="flex gap-2">
           <button
             type="button"
-            aria-label="Shërbimi i mëparshëm"
+            aria-label={t.prev}
             onClick={() => go(-1)}
             disabled={current === 0}
             className="focus-ring grid size-12 place-items-center rounded-full border border-line text-sky transition-colors disabled:opacity-30"
@@ -155,7 +158,7 @@ export default function ServicesRail() {
           </button>
           <button
             type="button"
-            aria-label="Shërbimi tjetër"
+            aria-label={t.next}
             onClick={() => go(1)}
             disabled={current === services.length - 1}
             className="focus-ring grid size-12 place-items-center rounded-full border border-line text-sky transition-colors disabled:opacity-30"

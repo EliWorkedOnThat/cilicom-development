@@ -9,20 +9,15 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import NetworkCanvas from "../NetworkCanvas";
 import Magnetic from "../Magnetic";
+import { useI18n } from "@/src/i18n/I18nProvider";
 
 gsap.registerPlugin(SplitText, ScrambleTextPlugin, ScrollTrigger);
 
-const rotating = [
-  "sisteme menaxhimi",
-  "automatizime",
-  "aplikacione web",
-  "zgjidhje me AI",
-  "aplikacione të personalizuara",
-  "ide që marrin jetë",
-];
-
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
+  const { t: dict, href } = useI18n();
+  const t = dict.home.hero;
+  const rotating = t.rotating;
 
   useGSAP(
     () => {
@@ -84,45 +79,44 @@ export default function Hero() {
       <div className="hero-inner relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-5 pt-[calc(7rem+env(safe-area-inset-top))] pb-14 md:pt-32 md:px-10 md:pb-16">
         <p className="hero-fade invisible mb-8 flex items-center gap-3 font-mono text-xs tracking-[0.2em] text-sky uppercase md:text-sm">
           <span className="size-2 rounded-full bg-sky shadow-[0_0_12px_var(--sky)]" />
-          Studio softueri · Shqipëri
+          {t.eyebrow}
         </p>
 
         <h1 className="hero-title invisible max-w-[14ch] text-[clamp(3rem,9.5vw,9.5rem)] leading-[0.92] font-semibold tracking-[-0.045em]">
-          Ideja juaj, e kthyer në softuer.
+          {t.title}
         </h1>
 
         <div className="mt-10 grid items-end gap-10 md:mt-14 md:grid-cols-[1fr_auto]">
           <div className="hero-fade invisible max-w-xl">
             <p className="font-mono text-sm text-ink-mute">
-              ndërtojmë <span className="text-ink-mute">→</span>{" "}
+              {t.verb} <span className="text-ink-mute">→</span>{" "}
               <span className="block sm:inline">
                 <span className="hero-word text-sky">{rotating[0]}</span>
                 <span className="caret ml-0.5 text-sky">▍</span>
               </span>
             </p>
             <p className="mt-4 text-lg leading-relaxed text-ink-soft md:text-xl">
-              Nga sistemet e menaxhimit te automatizimi dhe AI, ndërtojmë
-              softuerin që i duhet biznesit tuaj, dhe kujdesemi për të edhe pas lançimit.
+              {t.body}
             </p>
           </div>
 
           <div className="hero-fade invisible grid gap-3 sm:flex sm:flex-wrap sm:items-center sm:gap-4">
             <Magnetic className="w-full sm:w-auto">
               <Link
-                href="/contact"
+                href={href("/contact")}
                 className="focus-ring group flex items-center justify-between gap-3 rounded-full bg-sky py-4 pr-4 pl-7 text-lg font-semibold text-navy transition-colors hover:bg-sky-bright"
               >
-                Na tregoni idenë
+                {t.primary}
                 <span className="grid size-9 place-items-center rounded-full bg-navy text-sky transition-transform duration-500 group-hover:rotate-45">
                   ↗
                 </span>
               </Link>
             </Magnetic>
             <Link
-              href="/services"
+              href={href("/services")}
               className="focus-ring rounded-full border border-line px-6 py-4 text-center text-lg text-ink-soft transition-colors hover:border-sky hover:text-ink"
             >
-              Shërbimet
+              {t.secondary}
             </Link>
           </div>
         </div>

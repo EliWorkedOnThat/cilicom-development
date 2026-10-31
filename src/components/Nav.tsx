@@ -6,10 +6,13 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import Wordmark from "./Wordmark";
-import { links } from "@/src/content/nav";
+import LanguageSwitch from "./LanguageSwitch";
+import { useI18n } from "@/src/i18n/I18nProvider";
 
 export default function Nav() {
   const pathname = usePathname();
+  const { t: dict, href } = useI18n();
+  const t = dict.nav;
   // Remember which page the menu was opened on, so navigating closes it
   const [openOn, setOpenOn] = useState<string | null>(null);
   const open = openOn === pathname;
@@ -79,17 +82,18 @@ export default function Nav() {
         }`}
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:h-18 md:px-10">
-          <Link href="/" aria-label="cilicom, faqja kryesore" className="focus-ring relative z-10 text-[1.55rem] md:text-[1.7rem]">
+          <Link href={href("/")} aria-label={t.homeAria} className="focus-ring relative z-10 text-[1.55rem] md:text-[1.7rem]">
             <Wordmark />
           </Link>
 
-          <nav aria-label="Kryesore" className="hidden items-center gap-1 md:flex">
-            {links.map((l) => {
-              const active = pathname === l.href;
+          <div className="flex items-center gap-3">
+          <nav aria-label={t.menu} className="hidden items-center gap-1 md:flex">
+            {t.links.map((l) => {
+              const active = pathname === href(l.href);
               return (
                 <Link
                   key={l.href}
-                  href={l.href}
+                  href={href(l.href)}
                   aria-current={active ? "page" : undefined}
                   className={`focus-ring group relative rounded-full px-4 py-2 text-[0.95rem] transition-colors ${
                     active ? "text-ink" : "text-ink-soft hover:text-ink"
@@ -105,19 +109,21 @@ export default function Nav() {
               );
             })}
             <Link
-              href="/contact"
+              href={href("/contact")}
               className="focus-ring ml-3 rounded-full bg-sky px-5 py-2.5 text-[0.95rem] font-semibold text-navy transition-colors hover:bg-sky-bright"
             >
-              Fillojmë një projekt
+              {t.cta}
             </Link>
           </nav>
+
+          <LanguageSwitch />
 
           <button
             type="button"
             onClick={() => setOpenOn(open ? null : pathname)}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            aria-label={open ? "Mbyll menunë" : "Hap menunë"}
+            aria-label={open ? t.close : t.open}
             className={`focus-ring relative z-10 flex size-11 flex-col items-center justify-center gap-1.5 rounded-full border transition-colors duration-500 md:hidden ${
               open ? "border-sky/60" : "border-line"
             }`}
@@ -125,6 +131,7 @@ export default function Nav() {
             <span className={`h-px w-5 transition-all duration-300 ${open ? "translate-y-[3.5px] rotate-45 bg-sky" : "bg-ink"}`} />
             <span className={`h-px w-5 transition-all duration-300 ${open ? "-translate-y-[3.5px] -rotate-45 bg-sky" : "bg-ink"}`} />
           </button>
+          </div>
         </div>
       </header>
 
@@ -139,16 +146,16 @@ export default function Nav() {
         <div aria-hidden="true" className="pointer-events-none absolute -top-24 -right-24 size-80 rounded-full border border-sky/10" />
         <div aria-hidden="true" className="pointer-events-none absolute -top-48 -right-48 size-[32rem] rounded-full border border-sky/[0.07]" />
 
-        <p className="menu-foot relative font-mono text-xs tracking-[0.2em] text-sky uppercase">Menu</p>
+        <p className="menu-foot relative font-mono text-xs tracking-[0.2em] text-sky uppercase">{t.menu}</p>
         <nav aria-label="Mobile" className="relative mt-5 flex flex-col">
-          {[{ href: "/", label: "Kryefaqja" }, ...links, { href: "/contact", label: "Kontakt" }].map((l, i) => {
-            const active = pathname === l.href;
+          {[{ href: "/", label: t.home }, ...t.links, { href: "/contact", label: t.contact }].map((l, i) => {
+            const active = pathname === href(l.href);
             return (
               <div key={l.href} className="relative">
                 <span aria-hidden="true" className="menu-rule absolute inset-x-0 top-0 h-px origin-left bg-line" />
                 <div className="overflow-hidden">
                   <Link
-                    href={l.href}
+                    href={href(l.href)}
                     tabIndex={open ? 0 : -1}
                     aria-current={active ? "page" : undefined}
                     className="menu-link group flex items-center gap-4 py-3.5 [@media(max-height:700px)]:py-2"
@@ -174,11 +181,11 @@ export default function Nav() {
 
         <div className="relative mt-auto space-y-6 pt-10 [@media(max-height:700px)]:space-y-3 [@media(max-height:700px)]:pt-5">
           <Link
-            href="/contact#brief"
+            href={href("/contact#brief")}
             tabIndex={open ? 0 : -1}
             className="menu-foot flex items-center justify-between rounded-full bg-sky py-3.5 pr-3.5 pl-7 text-lg font-semibold text-navy"
           >
-            Fillojmë një projekt
+            {t.cta}
             <span className="grid size-9 place-items-center rounded-full bg-navy text-sky">↗</span>
           </Link>
           <div className="menu-foot flex items-end justify-between gap-4 font-mono text-xs">
@@ -187,7 +194,7 @@ export default function Nav() {
             </a>
             <span className="flex items-center gap-2 py-2 text-ink-mute">
               <span className="size-1.5 rounded-full bg-sky shadow-[0_0_8px_var(--sky)]" />
-              Shqipëri
+              {t.location}
             </span>
           </div>
         </div>
