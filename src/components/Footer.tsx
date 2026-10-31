@@ -1,4 +1,6 @@
 import Link from "next/link";
+import InstagramIcon from "./InstagramIcon";
+import { INSTAGRAM } from "@/src/content/contact";
 import { getDictionary } from "@/src/i18n/dictionaries";
 import { localize, type Locale } from "@/src/i18n/config";
 
@@ -40,6 +42,15 @@ export default function Footer({ lang }: { lang: Locale }) {
               className="focus-ring inline-block py-2.5 font-mono sm:px-2 text-sm text-sky transition-colors hover:text-sky-bright"
             >
               team@cilicom.net
+            </a>
+            <a
+              href={INSTAGRAM}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t.instagram}
+              className="focus-ring grid size-11 place-items-center rounded-full border border-line text-ink-soft transition-colors hover:border-sky hover:text-sky"
+            >
+              <InstagramIcon className="size-5" />
             </a>
           </div>
         </div>

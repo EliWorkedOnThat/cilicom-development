@@ -7,7 +7,8 @@ import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
 import { useGSAP } from "@gsap/react";
 import NetworkCanvas from "../NetworkCanvas";
 import Magnetic from "../Magnetic";
-import { EMAIL } from "@/src/content/contact";
+import { EMAIL, INSTAGRAM, INSTAGRAM_HANDLE } from "@/src/content/contact";
+import InstagramIcon from "../InstagramIcon";
 import { useI18n } from "@/src/i18n/I18nProvider";
 
 gsap.registerPlugin(SplitText, ScrambleTextPlugin);
@@ -86,6 +87,17 @@ export default function ContactHero() {
                 </button>
               </Magnetic>
             </div>
+            <a
+              href={INSTAGRAM}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="focus-ring group mt-5 inline-flex items-center gap-3 py-1 text-ink-soft transition-colors hover:text-sky"
+            >
+              <InstagramIcon className="size-5 text-sky" />
+              <span>
+                {t.instagram} <span className="font-mono text-ink group-hover:text-sky">{INSTAGRAM_HANDLE}</span>
+              </span>
+            </a>
           </div>
 
           <a

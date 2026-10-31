@@ -7,6 +7,8 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import Wordmark from "./Wordmark";
 import LanguageSwitch from "./LanguageSwitch";
+import InstagramIcon from "./InstagramIcon";
+import { INSTAGRAM } from "@/src/content/contact";
 import { useI18n } from "@/src/i18n/I18nProvider";
 
 export default function Nav() {
@@ -189,9 +191,21 @@ export default function Nav() {
             <span className="grid size-9 place-items-center rounded-full bg-navy text-sky">↗</span>
           </Link>
           <div className="menu-foot flex items-end justify-between gap-4 font-mono text-xs">
-            <a href="mailto:team@cilicom.net" tabIndex={open ? 0 : -1} className="py-2 text-ink-soft">
-              team@cilicom.net
-            </a>
+            <span className="flex items-center gap-4">
+              <a href="mailto:team@cilicom.net" tabIndex={open ? 0 : -1} className="py-2 text-ink-soft">
+                team@cilicom.net
+              </a>
+              <a
+                href={INSTAGRAM}
+                target="_blank"
+                rel="noopener noreferrer"
+                tabIndex={open ? 0 : -1}
+                aria-label={dict.footer.instagram}
+                className="grid size-9 place-items-center rounded-full border border-line text-ink-soft"
+              >
+                <InstagramIcon className="size-4" />
+              </a>
+            </span>
             <span className="flex items-center gap-2 py-2 text-ink-mute">
               <span className="size-1.5 rounded-full bg-sky shadow-[0_0_8px_var(--sky)]" />
               {t.location}

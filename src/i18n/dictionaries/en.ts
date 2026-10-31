@@ -35,6 +35,7 @@ const en: Dictionary = {
     status: "Taking on new projects",
     sitemap: "Sitemap",
     top: "Top",
+    instagram: "cilicom on Instagram",
   },
 
   cta: {
@@ -354,6 +355,7 @@ const en: Dictionary = {
       copied: "Copied ✓",
       briefLine1: "or fill in",
       briefLine2: "the project brief",
+      instagram: "or message us on Instagram",
     },
     briefEyebrow: "Project brief",
     briefTitle: "Four steps. Two minutes.",

@@ -34,6 +34,7 @@ const sq = {
     status: "Pranojmë projekte të reja",
     sitemap: "Sitemap",
     top: "Lart",
+    instagram: "cilicom në Instagram",
   },
 
   cta: {
@@ -354,6 +355,7 @@ const sq = {
       copied: "U kopjua ✓",
       briefLine1: "ose plotësoni",
       briefLine2: "brief-in e projektit",
+      instagram: "ose na shkruani në Instagram",
     },
     briefEyebrow: "Brief-i i projektit",
     briefTitle: "Katër hapa. Dy minuta.",
