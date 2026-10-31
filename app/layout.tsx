@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="sq" className={`${outfit.variable} ${jetbrains.variable} antialiased`}>
-      <body className="grain flex min-h-dvh flex-col">
+      <body id="top" className="grain flex min-h-dvh flex-col">
         <SmoothScroll />
         <Nav />
         <main className="flex-1">{children}</main>
