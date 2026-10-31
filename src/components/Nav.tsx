@@ -41,10 +41,17 @@ export default function Nav() {
           { clipPath: "circle(0% at calc(100% - 2.5rem) 2.5rem)" },
           { clipPath: "circle(150% at calc(100% - 2.5rem) 2.5rem)", duration: 0.8, ease: "expo.inOut" },
         )
-        .from(".menu-link", { yPercent: 120, duration: 0.7, stagger: 0.06, ease: "expo.out" }, "-=0.35");
+        .from(".menu-rule", { scaleX: 0, duration: 0.8, stagger: 0.05, ease: "expo.out" }, "-=0.45")
+        .from(".menu-link", { yPercent: 110, duration: 0.7, stagger: 0.05, ease: "expo.out" }, "<0.05")
+        .from(".menu-foot", { autoAlpha: 0, y: 16, duration: 0.6, stagger: 0.06, ease: "expo.out" }, "-=0.5");
     },
     { scope: menuRef },
   );
+
+  // Keep the page behind the open menu still
+  useEffect(() => {
+    document.documentElement.style.overflow = open ? "hidden" : "";
+  }, [open]);
 
   useEffect(() => {
     if (!tl.current) return;
@@ -99,10 +106,12 @@ export default function Nav() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Mbyll menunë" : "Hap menunë"}
-            className="focus-ring relative z-10 flex size-11 flex-col items-center justify-center gap-1.5 rounded-full border border-line md:hidden"
+            className={`focus-ring relative z-10 flex size-11 flex-col items-center justify-center gap-1.5 rounded-full border transition-colors duration-500 md:hidden ${
+              open ? "border-sky/60" : "border-line"
+            }`}
           >
-            <span className={`h-px w-5 bg-ink transition-transform duration-300 ${open ? "translate-y-[3.5px] rotate-45" : ""}`} />
-            <span className={`h-px w-5 bg-ink transition-transform duration-300 ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`} />
+            <span className={`h-px w-5 transition-all duration-300 ${open ? "translate-y-[3.5px] rotate-45 bg-sky" : "bg-ink"}`} />
+            <span className={`h-px w-5 transition-all duration-300 ${open ? "-translate-y-[3.5px] -rotate-45 bg-sky" : "bg-ink"}`} />
           </button>
         </div>
       </header>
@@ -110,26 +119,66 @@ export default function Nav() {
       <div
         ref={menuRef}
         id="mobile-menu"
-        className="fixed inset-0 z-40 hidden flex-col justify-between bg-sky px-5 pt-28 pb-10 text-navy md:hidden"
+        className="fixed inset-0 z-40 hidden flex-col overflow-y-auto bg-navy-deep px-5 pt-24 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:hidden"
         aria-hidden={!open}
       >
-        <nav aria-label="Mobile" className="flex flex-col">
-          {[...links, { href: "/contact", label: "Kontakt" }].map((l, i) => (
-            <div key={l.href} className="overflow-hidden">
-              <Link
-                href={l.href}
-                tabIndex={open ? 0 : -1}
-                className="menu-link flex items-baseline gap-4 py-1 text-[2.6rem] leading-tight font-semibold tracking-tight"
-              >
-                <span className="font-mono text-sm font-normal opacity-60">0{i + 1}</span>
-                {l.label}
-              </Link>
-            </div>
-          ))}
+        {/* Glow and rings radiating from the menu button */}
+        <div aria-hidden="true" className="pointer-events-none absolute -top-40 -right-40 size-[34rem] rounded-full bg-sky/15 blur-[100px]" />
+        <div aria-hidden="true" className="pointer-events-none absolute -top-24 -right-24 size-80 rounded-full border border-sky/10" />
+        <div aria-hidden="true" className="pointer-events-none absolute -top-48 -right-48 size-[32rem] rounded-full border border-sky/[0.07]" />
+
+        <p className="menu-foot relative font-mono text-xs tracking-[0.2em] text-sky uppercase">Menu</p>
+        <nav aria-label="Mobile" className="relative mt-5 flex flex-col">
+          {[{ href: "/", label: "Kryefaqja" }, ...links, { href: "/contact", label: "Kontakt" }].map((l, i) => {
+            const active = pathname === l.href;
+            return (
+              <div key={l.href} className="relative">
+                <span aria-hidden="true" className="menu-rule absolute inset-x-0 top-0 h-px origin-left bg-line" />
+                <div className="overflow-hidden">
+                  <Link
+                    href={l.href}
+                    tabIndex={open ? 0 : -1}
+                    aria-current={active ? "page" : undefined}
+                    className="menu-link group flex items-center gap-4 py-3.5 [@media(max-height:700px)]:py-2"
+                  >
+                    <span className={`w-6 font-mono text-xs ${active ? "text-sky" : "text-ink-mute"}`}>0{i + 1}</span>
+                    <span className={`flex-1 text-[2rem] leading-tight font-semibold tracking-tight ${active ? "text-sky" : "text-ink"}`}>
+                      {l.label}
+                    </span>
+                    <span
+                      className={`grid size-9 place-items-center rounded-full border text-sm transition-colors ${
+                        active ? "border-sky bg-sky text-navy" : "border-line text-ink-soft group-active:border-sky group-active:text-sky"
+                      }`}
+                    >
+                      {active ? "●" : "→"}
+                    </span>
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+          <span aria-hidden="true" className="menu-rule h-px origin-left bg-line" />
         </nav>
-        <a href="mailto:team@cilicom.net" tabIndex={open ? 0 : -1} className="font-mono text-sm">
-          team@cilicom.net
-        </a>
+
+        <div className="relative mt-auto space-y-6 pt-10 [@media(max-height:700px)]:space-y-3 [@media(max-height:700px)]:pt-5">
+          <Link
+            href="/contact#brief"
+            tabIndex={open ? 0 : -1}
+            className="menu-foot flex items-center justify-between rounded-full bg-sky py-3.5 pr-3.5 pl-7 text-lg font-semibold text-navy"
+          >
+            Fillojmë një projekt
+            <span className="grid size-9 place-items-center rounded-full bg-navy text-sky">↗</span>
+          </Link>
+          <div className="menu-foot flex items-end justify-between gap-4 font-mono text-xs">
+            <a href="mailto:team@cilicom.net" tabIndex={open ? 0 : -1} className="py-2 text-ink-soft">
+              team@cilicom.net
+            </a>
+            <span className="flex items-center gap-2 py-2 text-ink-mute">
+              <span className="size-1.5 rounded-full bg-sky shadow-[0_0_8px_var(--sky)]" />
+              Shqipëri
+            </span>
+          </div>
+        </div>
       </div>
     </>
   );

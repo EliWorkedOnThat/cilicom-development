@@ -98,7 +98,7 @@ export default function Process() {
                 {s.title}
               </h3>
               <p className="step-anim mt-4 max-w-lg text-lg leading-relaxed text-ink-soft">{s.body}</p>
-              <p className="step-anim mt-5 inline-flex items-center gap-2 rounded-full border border-line px-4 py-1.5 font-mono text-xs text-sky">
+              <p className="step-anim mt-5 inline-flex items-start gap-2 rounded-xl border border-line px-4 py-2 sm:rounded-full sm:py-1.5 font-mono text-xs text-sky">
                 → {s.out}
               </p>
             </li>

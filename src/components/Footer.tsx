@@ -11,17 +11,17 @@ export default function Footer() {
           </p>
           <a
             href="mailto:team@cilicom.net"
-            className="focus-ring mt-6 inline-block font-mono text-sky transition-colors hover:text-sky-bright"
+            className="focus-ring mt-4 inline-block py-2 font-mono text-sky transition-colors hover:text-sky-bright"
           >
             team@cilicom.net ↗
           </a>
         </div>
         <nav aria-label="Footer">
           <p className="font-mono text-xs tracking-[0.2em] text-ink-mute uppercase">Faqet</p>
-          <ul className="mt-5 space-y-2.5">
+          <ul className="mt-4 space-y-0.5">
             {[...links, { href: "/contact", label: "Kontakt" }].map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className="focus-ring text-ink-soft transition-colors hover:text-ink">
+                <Link href={l.href} className="focus-ring inline-block py-2 text-ink-soft transition-colors hover:text-ink">
                   {l.label}
                 </Link>
               </li>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { services } from "@/src/content/services";
 import { EMAIL, timelines, budgets } from "@/src/content/contact";
 import ServiceGlyph from "./ServiceGlyph";
@@ -25,7 +25,7 @@ function Step({ n, title, hint, children }: { n: string; title: string; hint?: s
         <span className="font-mono text-sm text-sky">{n}</span>
         <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">{title}</h2>
       </div>
-      {hint && <p className="mt-2 pl-10 text-ink-mute">{hint}</p>}
+      {hint && <p className="mt-2 text-ink-mute md:pl-10">{hint}</p>}
       <div className="mt-7">{children}</div>
     </fieldset>
   );
@@ -50,6 +50,22 @@ function Chip({ on, onClick, children }: { on: boolean; onClick: () => void; chi
 export default function ContactForm() {
   const [b, setB] = useState<Brief>(empty);
   const [sent, setSent] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+  const summaryRef = useRef<HTMLElement>(null);
+  const [formInView, setFormInView] = useState(false);
+  const [summaryInView, setSummaryInView] = useState(false);
+
+  // Phones: a bottom bar keeps progress and the send button in reach while
+  // filling in the steps, and steps aside once the full summary is on screen.
+  useEffect(() => {
+    const io = new IntersectionObserver((entries) =>
+      entries.forEach((e) => (e.target === formRef.current ? setFormInView : setSummaryInView)(e.isIntersecting)),
+    );
+    io.observe(formRef.current!);
+    io.observe(summaryRef.current!);
+    return () => io.disconnect();
+  }, []);
+  const showBar = formInView && !summaryInView && !sent;
 
   const set = <K extends keyof Brief>(k: K, v: Brief[K]) => setB((prev) => ({ ...prev, [k]: v }));
   const toggleService = (t: string) =>
@@ -80,7 +96,7 @@ export default function ContactForm() {
 
   return (
     <div className="grid gap-14 lg:grid-cols-[1.35fr_0.65fr] lg:gap-16">
-      <form id="brief-form" onSubmit={onSubmit} className="space-y-14">
+      <form ref={formRef} id="brief-form" onSubmit={onSubmit} className="space-y-14">
         <Step n="01" title="Çfarë doni të ndërtoni?" hint="Zgjidhni një ose më shumë.">
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
             {services.map((s) => {
@@ -161,7 +177,7 @@ export default function ContactForm() {
       </form>
 
       {/* Live summary of the brief */}
-      <aside className="lg:sticky lg:top-28 lg:self-start">
+      <aside ref={summaryRef} className="lg:sticky lg:top-28 lg:self-start">
         <div className="overflow-hidden rounded-3xl border border-line bg-navy-deep/70 shadow-[0_40px_120px_-50px_rgba(49,169,255,0.45)]">
           <div className="flex items-center justify-between border-b border-line px-6 py-4">
             <span className="font-mono text-xs tracking-[0.2em] text-ink-mute uppercase">Brief-i juaj</span>
@@ -236,6 +252,31 @@ export default function ContactForm() {
           </div>
         </div>
       </aside>
+
+      <div
+        aria-hidden={!showBar}
+        inert={!showBar}
+        className={`fixed inset-x-0 bottom-0 z-40 border-t border-line bg-navy-deep/90 px-5 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-lg transition-transform duration-500 ease-out lg:hidden ${
+          showBar ? "translate-y-0" : "translate-y-full"
+        }`}
+      >
+        <div className="absolute inset-x-0 top-0 h-px bg-line">
+          <div className="h-px bg-sky shadow-[0_0_10px_var(--sky)] transition-[width] duration-700 ease-out" style={{ width: `${progress}%` }} />
+        </div>
+        <div className="flex items-center justify-between gap-4">
+          <p className="font-mono text-xs text-ink-mute">
+            Brief-i <span className="text-sky">{progress}%</span>
+          </p>
+          <button
+            type="submit"
+            form="brief-form"
+            className="focus-ring flex items-center gap-3 rounded-full bg-sky py-2.5 pr-2.5 pl-5 font-semibold text-navy"
+          >
+            Dërgo
+            <span className="grid size-7 place-items-center rounded-full bg-navy text-sm text-sky">↗</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

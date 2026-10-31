@@ -22,9 +22,10 @@ export default function CallToAction({
   useGSAP(
     () => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const narrow = window.matchMedia("(max-width: 767px)").matches;
       gsap.fromTo(
         ".cta-panel",
-        { clipPath: "inset(12% 6% 12% 6% round 48px)" },
+        { clipPath: narrow ? "inset(6% 4% 6% 4% round 32px)" : "inset(12% 6% 12% 6% round 48px)" },
         {
           clipPath: "inset(0% 0% 0% 0% round 0px)",
           ease: "none",
@@ -47,13 +48,13 @@ export default function CallToAction({
         <div aria-hidden="true" className="pointer-events-none absolute -top-1/3 -right-1/4 size-[70vw] rounded-full border border-navy/10" />
         <div aria-hidden="true" className="pointer-events-none absolute -top-1/4 -right-1/6 size-[50vw] rounded-full border border-navy/10" />
 
-        <div className="relative mx-auto max-w-7xl px-5 py-28 md:px-10 md:py-44">
+        <div className="relative mx-auto max-w-7xl px-8 py-24 md:px-10 md:py-44">
           <h2 className="cta-title max-w-[12ch] origin-left text-[clamp(3rem,8.5vw,8.5rem)] leading-[0.92] font-semibold tracking-[-0.045em]">
             {title}
           </h2>
           <div className="mt-12 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <p className="max-w-md text-xl leading-relaxed text-navy/75">{body}</p>
-            <Magnetic>
+            <Magnetic className="self-start">
               <Link
                 href="/contact"
                 className="group inline-flex items-center gap-4 rounded-full bg-navy py-5 pr-5 pl-9 text-xl font-semibold text-ink transition-transform focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy"

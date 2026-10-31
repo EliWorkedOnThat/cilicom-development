@@ -95,8 +95,10 @@ export default function Hero() {
           <div className="hero-fade invisible max-w-xl">
             <p className="font-mono text-sm text-ink-mute">
               ndërtojmë <span className="text-ink-mute">→</span>{" "}
-              <span className="hero-word text-sky">{rotating[0]}</span>
-              <span className="caret ml-0.5 text-sky">▍</span>
+              <span className="block sm:inline">
+                <span className="hero-word text-sky">{rotating[0]}</span>
+                <span className="caret ml-0.5 text-sky">▍</span>
+              </span>
             </p>
             <p className="mt-4 text-lg leading-relaxed text-ink-soft md:text-xl">
               Nga sistemet e menaxhimit te automatizimi dhe AI, ndërtojmë
@@ -104,11 +106,11 @@ export default function Hero() {
             </p>
           </div>
 
-          <div className="hero-fade invisible flex flex-wrap items-center gap-4">
-            <Magnetic>
+          <div className="hero-fade invisible grid gap-3 sm:flex sm:flex-wrap sm:items-center sm:gap-4">
+            <Magnetic className="w-full sm:w-auto">
               <Link
                 href="/contact"
-                className="focus-ring group inline-flex items-center gap-3 rounded-full bg-sky py-4 pr-4 pl-7 text-lg font-semibold text-navy transition-colors hover:bg-sky-bright"
+                className="focus-ring group flex items-center justify-between gap-3 rounded-full bg-sky py-4 pr-4 pl-7 text-lg font-semibold text-navy transition-colors hover:bg-sky-bright"
               >
                 Na tregoni idenë
                 <span className="grid size-9 place-items-center rounded-full bg-navy text-sky transition-transform duration-500 group-hover:rotate-45">
@@ -118,7 +120,7 @@ export default function Hero() {
             </Magnetic>
             <Link
               href="/services"
-              className="focus-ring rounded-full border border-line px-6 py-4 text-lg text-ink-soft transition-colors hover:border-sky hover:text-ink"
+              className="focus-ring rounded-full border border-line px-6 py-4 text-center text-lg text-ink-soft transition-colors hover:border-sky hover:text-ink"
             >
               Shërbimet
             </Link>
