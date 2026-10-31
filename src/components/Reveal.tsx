@@ -50,11 +50,12 @@ export default function Reveal({
       SplitText.create(el, {
         type: mode === "lines" ? "lines" : "words,lines",
         mask: "lines",
+        linesClass: "split-line",
         autoSplit: true,
         onSplit(self) {
           gsap.set(el, { autoAlpha: 1 });
           return gsap.from(mode === "lines" ? self.lines : self.words, {
-            yPercent: 110,
+            yPercent: 135,
             rotate: 2,
             duration: 1.2,
             ease: "expo.out",

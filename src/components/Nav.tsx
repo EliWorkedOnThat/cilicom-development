@@ -127,8 +127,8 @@ export default function Nav() {
             </div>
           ))}
         </nav>
-        <a href="mailto:hello@cilicom.al" tabIndex={open ? 0 : -1} className="font-mono text-sm">
-          hello@cilicom.al
+        <a href="mailto:team@cilicom.net" tabIndex={open ? 0 : -1} className="font-mono text-sm">
+          team@cilicom.net
         </a>
       </div>
     </>

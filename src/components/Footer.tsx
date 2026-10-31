@@ -10,10 +10,10 @@ export default function Footer() {
             Softuer i ndërtuar me kujdes, për biznese që duan të rriten.
           </p>
           <a
-            href="mailto:hello@cilicom.al"
+            href="mailto:team@cilicom.net"
             className="focus-ring mt-6 inline-block font-mono text-sky transition-colors hover:text-sky-bright"
           >
-            hello@cilicom.al ↗
+            team@cilicom.net ↗
           </a>
         </div>
         <nav aria-label="Footer">
@@ -40,7 +40,7 @@ export default function Footer() {
 
       <div className="mx-auto flex max-w-7xl justify-between border-t border-line px-5 py-6 font-mono text-xs text-ink-mute md:px-10">
         <span>© 2026 cilicom</span>
-        <span>cilicom.al</span>
+        <span>cilicom.net</span>
       </div>
 
       {/* Oversized wordmark, cropped by the bottom edge */}

@@ -30,12 +30,12 @@ export default function Hero() {
       gsap.set(".hero-fade, .hero-title", { autoAlpha: 1 });
       if (reduce) return;
 
-      const split = SplitText.create(".hero-title", { type: "chars,words,lines", mask: "lines" });
+      const split = SplitText.create(".hero-title", { type: "chars,words,lines", mask: "lines", linesClass: "split-line" });
 
       gsap
         .timeline({ defaults: { ease: "expo.out" } })
         .from(".hero-canvas", { autoAlpha: 0, duration: 2.4, ease: "power2.out" }, 0)
-        .from(split.chars, { yPercent: 115, duration: 1.3, stagger: 0.018 }, 0.15)
+        .from(split.chars, { yPercent: 135, duration: 1.3, stagger: 0.018 }, 0.15)
         .from(".hero-fade", { autoAlpha: 0, y: 24, duration: 1.1, stagger: 0.08 }, 0.7);
 
       // Cycle the highlighted service with a scramble, terminal style

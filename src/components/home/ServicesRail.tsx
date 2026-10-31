@@ -43,14 +43,18 @@ export default function ServicesRail() {
           scrollTrigger: { trigger: root.current, start: "top top", end: () => `+=${distance()}`, scrub: true },
         });
 
-        // Each card's glyph draws in as it slides into view
+        // Each card's glyph draws in as it slides into view. Cards already on
+        // screen before the rail moves draw when the section itself arrives.
         gsap.utils.toArray<HTMLElement>(".rail-card").forEach((card) => {
+          const visibleAtStart = card.getBoundingClientRect().left < window.innerWidth * 0.85;
           gsap.from(card.querySelectorAll("path:not([stroke-dasharray]), rect, circle"), {
             drawSVG: 0,
             opacity: 0,
             duration: 0.8,
             stagger: 0.04,
-            scrollTrigger: { trigger: card, containerAnimation: scroll, start: "left 85%" },
+            scrollTrigger: visibleAtStart
+              ? { trigger: root.current, start: "top 55%" }
+              : { trigger: card, containerAnimation: scroll, start: "left 85%" },
           });
         });
       });
