@@ -69,7 +69,14 @@ export default function Nav() {
       <header
         className={`fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)] transition-[transform,background-color,border-color] duration-500 ${
           hidden && !open ? "-translate-y-full" : "translate-y-0"
-        } ${scrolled && !open ? "border-b border-line/60 bg-navy/75 backdrop-blur-xl" : "border-b border-transparent"}`}
+        } ${
+          open
+            ? "border-b border-transparent"
+            : scrolled
+              ? "border-b border-line/60 bg-navy/75 backdrop-blur-xl"
+              : // Solid on phones so Safari tints the status bar area to match
+                "border-b border-transparent bg-navy md:bg-transparent"
+        }`}
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:h-18 md:px-10">
           <Link href="/" aria-label="cilicom, faqja kryesore" className="focus-ring relative z-10 text-[1.55rem] md:text-[1.7rem]">
