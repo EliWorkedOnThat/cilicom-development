@@ -81,7 +81,7 @@ export default function Hero() {
       />
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-linear-to-b from-transparent to-navy" />
 
-      <div className="hero-inner relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-5 pt-32 pb-14 md:px-10 md:pb-16">
+      <div className="hero-inner relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-5 pt-[calc(7rem+env(safe-area-inset-top))] pb-14 md:pt-32 md:px-10 md:pb-16">
         <p className="hero-fade invisible mb-8 flex items-center gap-3 font-mono text-xs tracking-[0.2em] text-sky uppercase md:text-sm">
           <span className="size-2 rounded-full bg-sky shadow-[0_0_12px_var(--sky)]" />
           Studio softueri · Shqipëri

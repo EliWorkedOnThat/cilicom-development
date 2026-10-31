@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Outfit, JetBrains_Mono } from "next/font/google";
 import SmoothScroll from "@/src/components/SmoothScroll";
 import Nav from "@/src/components/Nav";
@@ -23,6 +23,13 @@ export const metadata: Metadata = {
   description:
     "cilicom ndërton sisteme menaxhimi, aplikacione web, automatizime dhe zgjidhje AI të personalizuara — dhe i mirëmban ato pas lançimit.",
   icons: { icon: "/cilicom-logo.jpg" },
+};
+
+// Draw under the iPhone notch / Dynamic Island and tint the browser bars navy;
+// the header pads itself by the safe-area inset instead.
+export const viewport: Viewport = {
+  themeColor: "#021236",
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

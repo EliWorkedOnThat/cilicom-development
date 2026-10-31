@@ -2,7 +2,7 @@ import Reveal from "./Reveal";
 
 export default function PageHeader({ label, title, intro }: { label: string; title: string; intro?: string }) {
   return (
-    <section className="relative overflow-hidden bg-navy pt-40 pb-20 md:pt-52 md:pb-28">
+    <section className="relative overflow-hidden bg-navy pt-[calc(7.5rem+env(safe-area-inset-top))] pb-20 md:pt-52 md:pb-28">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-40 left-1/2 h-[36rem] w-[70rem] -translate-x-1/2 rounded-full bg-sky/10 blur-[140px]"
