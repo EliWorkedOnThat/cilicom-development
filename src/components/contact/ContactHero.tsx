@@ -51,7 +51,7 @@ export default function ContactHero() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_25%,var(--navy)_85%)]"
       />
 
-      <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-5 pt-32 pb-14 md:px-10 md:pb-20">
+      <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-5 pt-[calc(7rem+env(safe-area-inset-top))] pb-14 md:pt-32 md:px-10 md:pb-20">
         <p className="ch-fade invisible mb-8 inline-flex items-center gap-3 self-start rounded-full border border-line bg-navy/60 px-4 py-2 font-mono text-xs text-ink-soft backdrop-blur md:text-sm">
           <span className="relative flex size-2.5">
             <span className="absolute inline-flex size-full animate-ping rounded-full bg-sky opacity-60" />

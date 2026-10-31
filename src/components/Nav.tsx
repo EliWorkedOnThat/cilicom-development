@@ -33,13 +33,18 @@ export default function Nav() {
 
   useGSAP(
     () => {
+      // The menu grows out of the button, wherever the safe area put it
+      const buttonCenter = () => {
+        const r = document.querySelector('[aria-controls="mobile-menu"]')!.getBoundingClientRect();
+        return `${r.left + r.width / 2}px ${r.top + r.height / 2}px`;
+      };
       tl.current = gsap
         .timeline({ paused: true })
         .set(menuRef.current, { display: "flex" })
         .fromTo(
           menuRef.current,
-          { clipPath: "circle(0% at calc(100% - 2.5rem) 2.5rem)" },
-          { clipPath: "circle(150% at calc(100% - 2.5rem) 2.5rem)", duration: 0.8, ease: "expo.inOut" },
+          { clipPath: () => `circle(0% at ${buttonCenter()})` },
+          { clipPath: () => `circle(150% at ${buttonCenter()})`, duration: 0.8, ease: "expo.inOut" },
         )
         .from(".menu-rule", { scaleX: 0, duration: 0.8, stagger: 0.05, ease: "expo.out" }, "-=0.45")
         .from(".menu-link", { yPercent: 110, duration: 0.7, stagger: 0.05, ease: "expo.out" }, "<0.05")
@@ -62,12 +67,19 @@ export default function Nav() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-[transform,background-color,border-color] duration-500 ${
+        className={`fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)] transition-[transform,background-color,border-color] duration-500 ${
           hidden && !open ? "-translate-y-full" : "translate-y-0"
-        } ${scrolled && !open ? "border-b border-line/60 bg-navy/75 backdrop-blur-xl" : "border-b border-transparent"}`}
+        } ${
+          open
+            ? "border-b border-transparent"
+            : scrolled
+              ? "border-b border-line/60 bg-navy/75 backdrop-blur-xl"
+              : // Solid on phones so Safari tints the status bar area to match
+                "border-b border-transparent bg-navy md:bg-transparent"
+        }`}
       >
-        <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-5 md:px-10">
-          <Link href="/" aria-label="cilicom, faqja kryesore" className="focus-ring relative z-10 text-[1.7rem]">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:h-18 md:px-10">
+          <Link href="/" aria-label="cilicom, faqja kryesore" className="focus-ring relative z-10 text-[1.55rem] md:text-[1.7rem]">
             <Wordmark />
           </Link>
 
@@ -119,7 +131,7 @@ export default function Nav() {
       <div
         ref={menuRef}
         id="mobile-menu"
-        className="fixed inset-0 z-40 hidden flex-col overflow-y-auto bg-navy-deep px-5 pt-24 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:hidden"
+        className="fixed inset-0 z-40 hidden flex-col overflow-y-auto bg-navy-deep px-5 pt-[calc(5.5rem+env(safe-area-inset-top))] pb-[max(1.5rem,env(safe-area-inset-bottom))] md:hidden"
         aria-hidden={!open}
       >
         {/* Glow and rings radiating from the menu button */}
