@@ -19,8 +19,23 @@ function localeFromAcceptLanguage(req: NextRequest): Locale | null {
   return first ? "en" : null;
 }
 
+// A plain URL on purpose: req.nextUrl re-applies its own trailing-slash rule when printed, which would loop
+function redirectTo(req: NextRequest, pathname: string) {
+  const url = new URL(req.url);
+  url.pathname = pathname;
+  return NextResponse.redirect(url, 308);
+}
+
 export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
+
+  // The static Eztemplate site in public/eztemplate has no language versions and needs its trailing slash
+  if (pathname === "/eztemplate/") return;
+  if (pathname === "/eztemplate") return redirectTo(req, "/eztemplate/");
+
+  // Next's own trailing-slash redirect is off (see next.config.ts), so every other page keeps it here
+  if (pathname !== "/" && pathname.endsWith("/")) return redirectTo(req, pathname.replace(/\/+$/, "") || "/");
+
   const segment = pathname.split("/")[1] ?? "";
   if (hasLocale(segment)) return;
 
