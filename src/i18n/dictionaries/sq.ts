@@ -12,6 +12,7 @@ const sq = {
     links: [
       { href: "/services", label: "Shërbimet" },
       { href: "/projects", label: "Projektet" },
+      { href: "/testimonials", label: "Referencat" },
       { href: "/pricing", label: "Bashkëpunimi" },
       { href: "/about", label: "Rreth nesh" },
     ],
@@ -271,6 +272,21 @@ const sq = {
         stack: ["Portal", "Pagesa", "Role"],
       },
     ],
+  },
+
+  testimonialsPage: {
+    metaTitle: "Referencat",
+    metaDescription: "Çfarë thonë klientët për punën me cilicom.",
+    label: "Referencat",
+    title: "Çfarë thonë klientët tanë.",
+    intro: "Fjalët e bizneseve me të cilat kemi punuar.",
+    emptyTitle: "Referencat e para po vijnë së shpejti.",
+    emptyBody: "Keni punuar me ne? Na tregoni si shkoi dhe, me lejen tuaj, do ta publikojmë këtu.",
+    emptyButton: "Dërgoni referencën tuaj",
+    ctaTitle: "Projekti juaj mund të jetë i radhës.",
+    // Only real words from real clients, published with their permission. Add one per client, in both sq.ts and en.ts:
+    // { quote: "…", name: "Client name", role: "Role, Company" },
+    items: [] as { quote: string; name: string; role: string }[],
   },
 
   pricingPage: {

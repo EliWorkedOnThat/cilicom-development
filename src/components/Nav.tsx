@@ -89,7 +89,7 @@ export default function Nav() {
           </Link>
 
           <div className="flex items-center gap-3">
-          <nav aria-label={t.menu} className="hidden items-center gap-1 md:flex">
+          <nav aria-label={t.menu} className="hidden items-center gap-1 lg:flex">
             {t.links.map((l) => {
               const active = pathname === href(l.href);
               return (
@@ -97,7 +97,7 @@ export default function Nav() {
                   key={l.href}
                   href={href(l.href)}
                   aria-current={active ? "page" : undefined}
-                  className={`focus-ring group relative rounded-full px-4 py-2 text-[0.95rem] transition-colors ${
+                  className={`focus-ring group relative rounded-full px-4 py-2 text-[0.95rem] whitespace-nowrap transition-colors ${
                     active ? "text-ink" : "text-ink-soft hover:text-ink"
                   }`}
                 >
@@ -112,7 +112,7 @@ export default function Nav() {
             })}
             <Link
               href={href("/contact")}
-              className="focus-ring ml-3 rounded-full bg-sky px-5 py-2.5 text-[0.95rem] font-semibold text-navy transition-colors hover:bg-sky-bright"
+              className="focus-ring ml-3 rounded-full bg-sky px-5 py-2.5 text-[0.95rem] font-semibold whitespace-nowrap text-navy transition-colors hover:bg-sky-bright"
             >
               {t.cta}
             </Link>
@@ -126,7 +126,7 @@ export default function Nav() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? t.close : t.open}
-            className={`focus-ring relative z-10 flex size-11 flex-col items-center justify-center gap-1.5 rounded-full border transition-colors duration-500 md:hidden ${
+            className={`focus-ring relative z-10 flex size-11 flex-col items-center justify-center gap-1.5 rounded-full border transition-colors duration-500 lg:hidden ${
               open ? "border-sky/60" : "border-line"
             }`}
           >
@@ -140,7 +140,7 @@ export default function Nav() {
       <div
         ref={menuRef}
         id="mobile-menu"
-        className="fixed inset-0 z-40 hidden flex-col overflow-y-auto bg-navy-deep px-5 pt-[calc(5.5rem+env(safe-area-inset-top))] pb-[max(1.5rem,env(safe-area-inset-bottom))] md:hidden"
+        className="fixed inset-0 z-40 hidden flex-col overflow-y-auto bg-navy-deep px-5 pt-[calc(5.5rem+env(safe-area-inset-top))] pb-[max(1.5rem,env(safe-area-inset-bottom))] lg:hidden"
         aria-hidden={!open}
       >
         {/* Glow and rings radiating from the menu button */}

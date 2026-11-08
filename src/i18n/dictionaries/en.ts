@@ -13,6 +13,7 @@ const en: Dictionary = {
     links: [
       { href: "/services", label: "Services" },
       { href: "/projects", label: "Projects" },
+      { href: "/testimonials", label: "Testimonials" },
       { href: "/pricing", label: "Working together" },
       { href: "/about", label: "About" },
     ],
@@ -271,6 +272,21 @@ const en: Dictionary = {
         stack: ["Portal", "Payments", "Roles"],
       },
     ],
+  },
+
+  testimonialsPage: {
+    metaTitle: "Testimonials",
+    metaDescription: "What clients say about working with cilicom.",
+    label: "Testimonials",
+    title: "What our clients say.",
+    intro: "In the words of the businesses we've worked with.",
+    emptyTitle: "The first testimonials are coming soon.",
+    emptyBody: "Have you worked with us? Tell us how it went and, with your permission, we'll publish it here.",
+    emptyButton: "Send your testimonial",
+    ctaTitle: "Your project could be next.",
+    // Only real words from real clients, published with their permission. Add one per client, in both sq.ts and en.ts:
+    // { quote: "…", name: "Client name", role: "Role, Company" },
+    items: [],
   },
 
   pricingPage: {
