@@ -233,8 +233,8 @@ const en: Dictionary = {
     products: [
       {
         title: "Academy platform",
-        body: "Live Zoom classes, materials, recordings, students and payments for academies and course centres, all in one place.",
-        stack: ["Zoom", "Web", "Mobile", "Payments"],
+        body: "Live lessons, materials, recordings, students and payments for academies and course centres, all in one place.",
+        stack: ["Live lessons", "Web", "Mobile", "Payments"],
         href: "/projects/academy",
         icon: "/academy/icon.svg",
         external: false,
@@ -291,13 +291,13 @@ const en: Dictionary = {
   academyPage: {
     metaTitle: "Academy platform",
     metaDescription:
-      "A platform for academies and course centres: live Zoom classes, materials, recordings, students and payments in one place, on computer and phone.",
+      "A platform for academies and course centres: live lessons, materials, recordings, students and payments in one place, on computer and phone.",
     eyebrow: "For academies and course centres",
     title: "Your online courses, all in one place.",
     lead: "Live classes, materials, recordings, students and payments. Simple for the teacher, easy for students, on computer and phone.",
     primaryCta: "Request a demo",
     secondaryCta: "How it works",
-    trust: ["Zoom inside the page", "On phone and computer", "In Albanian"],
+    trust: ["Live lessons inside the page", "On phone and computer", "In Albanian"],
     // The phone mock-up shows the real (Albanian) app, so its text stays in Albanian.
     mock: {
       live: "Live tani",
@@ -314,7 +314,7 @@ const en: Dictionary = {
     featuresLabel: "Features",
     featuresTitle: "Everything an online academy needs.",
     features: [
-      { icon: "live", title: "Live Zoom classes", body: "The teacher starts class in one click and students join inside the page. No links passed around in groups." },
+      { icon: "live", title: "Live lessons", body: "The teacher starts class in one click and students join inside the page. No links passed around in groups." },
       { icon: "play", title: "Materials and recordings", body: "Videos, PDFs and photos for every lesson. The class recording is added automatically afterwards." },
       { icon: "calendar", title: "Calendar and lessons", body: "Repeating lessons, a colour for each course and the whole month at a glance." },
       { icon: "shield", title: "Controlled access", body: "Invitations with an expiry, access until the date you set. Without access, nobody gets in." },
@@ -355,9 +355,9 @@ const en: Dictionary = {
     faqLabel: "Questions",
     faqTitle: "What people ask us most.",
     faq: [
-      { q: "Do students need to install anything?", a: "No. Students sign in from the browser on their phone or computer, and the Zoom class opens inside the page." },
+      { q: "Do students need to install anything?", a: "No. Students sign in from the browser on their phone or computer, and the live lesson opens inside the page." },
       { q: "Does the platform take online payments?", a: "No, on purpose: you record payments made in cash or by bank transfer, with no commission. The platform shows who has paid and who is behind." },
-      { q: "What happens to class recordings?", a: "The Zoom recording is added to the lesson automatically after class, and students can rewatch it until the deadline you set." },
+      { q: "What happens to class recordings?", a: "The recording is added to the lesson automatically after class, and students can rewatch it until the deadline you set." },
       { q: "Can it use the academy's logo and colours?", a: "Yes. The platform and the website are built with your logo, colours and courses." },
       { q: "What if we need something different?", a: "We add, remove or change features to fit the way you work, so the platform suits your academy." },
     ],

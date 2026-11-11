@@ -234,8 +234,8 @@ const sq = {
     products: [
       {
         title: "Platforma për akademi",
-        body: "Mësime live me Zoom, materiale, regjistrime, studentë dhe pagesa për akademi dhe qendra kursesh, të gjitha në një vend.",
-        stack: ["Zoom", "Web", "Telefon", "Pagesa"],
+        body: "Mësime live, materiale, regjistrime, studentë dhe pagesa për akademi dhe qendra kursesh, të gjitha në një vend.",
+        stack: ["Mësime live", "Web", "Telefon", "Pagesa"],
         href: "/projects/academy",
         icon: "/academy/icon.svg",
         external: false,
@@ -292,13 +292,13 @@ const sq = {
   academyPage: {
     metaTitle: "Platforma për akademi",
     metaDescription:
-      "Platformë për akademi dhe qendra kursesh: klasa live me Zoom, materiale, regjistrime, studentë dhe pagesa në një vend, në kompjuter dhe në telefon.",
+      "Platformë për akademi dhe qendra kursesh: mësime live, materiale, regjistrime, studentë dhe pagesa në një vend, në kompjuter dhe në telefon.",
     eyebrow: "Për akademi dhe qendra kursesh",
     title: "Kurset tuaja online, të gjitha në një vend.",
     lead: "Klasa live, materiale, regjistrime, studentë dhe pagesa. E thjeshtë për mësuesen, e lehtë për studentët, në kompjuter dhe në telefon.",
     primaryCta: "Kërkoni një demo",
     secondaryCta: "Si funksionon",
-    trust: ["Zoom brenda faqes", "Në telefon dhe kompjuter", "Në shqip"],
+    trust: ["Mësime live brenda faqes", "Në telefon dhe kompjuter", "Në shqip"],
     // Text inside the drawn phone in the hero.
     mock: {
       live: "Live tani",
@@ -315,7 +315,7 @@ const sq = {
     featuresLabel: "Funksionet",
     featuresTitle: "Gjithçka që i duhet një akademie online.",
     features: [
-      { icon: "live", title: "Klasa live me Zoom", body: "Mësuesja nis klasën me një klikim, studentët hyjnë brenda faqes. Pa lidhje që qarkullojnë nëpër grupe." },
+      { icon: "live", title: "Mësime live", body: "Mësuesja nis klasën me një klikim, studentët hyjnë brenda faqes. Pa lidhje që qarkullojnë nëpër grupe." },
       { icon: "play", title: "Materiale dhe regjistrime", body: "Video, PDF dhe foto për çdo mësim. Regjistrimi i klasës shtohet vetë pas mësimit." },
       { icon: "calendar", title: "Kalendar dhe mësime", body: "Mësime që përsëriten, kurse me ngjyrën e vet dhe i gjithë muaji me një vështrim." },
       { icon: "shield", title: "Akses i kontrolluar", body: "Ftesa me afat, akses deri në datën që vendosni ju. Kush nuk ka akses, nuk hyn." },
@@ -356,9 +356,9 @@ const sq = {
     faqLabel: "Pyetje",
     faqTitle: "Pyetjet që na bëjnë më shpesh.",
     faq: [
-      { q: "A duhet të instalojnë studentët diçka?", a: "Jo. Studentët hyjnë nga shfletuesi, në telefon ose kompjuter, dhe klasa Zoom hapet brenda faqes." },
+      { q: "A duhet të instalojnë studentët diçka?", a: "Jo. Studentët hyjnë nga shfletuesi, në telefon ose kompjuter, dhe mësimi live hapet brenda faqes." },
       { q: "A pranon platforma pagesa online?", a: "Jo, dhe kjo është me qëllim: ju i regjistroni pagesat me para në dorë ose bankë, pa komisione. Platforma ju tregon kush ka paguar dhe kush është me vonesë." },
-      { q: "Çfarë ndodh me regjistrimet e klasave?", a: "Regjistrimi i Zoom shtohet vetë te mësimi pas klasës dhe studentët e rishikojnë deri në afatin që vendosni ju." },
+      { q: "Çfarë ndodh me regjistrimet e klasave?", a: "Regjistrimi i mësimit shtohet vetë te mësimi pas klasës dhe studentët e rishikojnë deri në afatin që vendosni ju." },
       { q: "A mund të ketë logon dhe ngjyrat e akademisë?", a: "Po. Platforma dhe faqja e internetit ndërtohen me logon, ngjyrat dhe kurset tuaja." },
       { q: "Po nëse na duhet diçka ndryshe?", a: "Funksionet i shtojmë, i heqim ose i ndryshojmë sipas mënyrës si punoni ju, që platforma t'i përshtatet akademisë suaj." },
     ],
