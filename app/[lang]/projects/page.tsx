@@ -8,12 +8,13 @@ import CallToAction from "@/src/components/CallToAction";
 import { notFound } from "next/navigation";
 import { getDictionary } from "@/src/i18n/dictionaries";
 import { hasLocale, localize } from "@/src/i18n/config";
+import { pageAlternates } from "@/src/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/projects">): Promise<Metadata> {
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const t = getDictionary(lang).projectsPage;
-  return { title: t.metaTitle, description: t.metaDescription };
+  return { title: t.metaTitle, description: t.metaDescription, alternates: pageAlternates(lang, "/projects") };
 }
 
 // Card widths for the bento grid, in the same order as the ideas in the dictionary.

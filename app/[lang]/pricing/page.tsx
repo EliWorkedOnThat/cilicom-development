@@ -7,12 +7,13 @@ import CallToAction from "@/src/components/CallToAction";
 import { notFound } from "next/navigation";
 import { getDictionary } from "@/src/i18n/dictionaries";
 import { hasLocale, localize } from "@/src/i18n/config";
+import { pageAlternates } from "@/src/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/pricing">): Promise<Metadata> {
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const t = getDictionary(lang).pricingPage;
-  return { title: t.metaTitle, description: t.metaDescription };
+  return { title: t.metaTitle, description: t.metaDescription, alternates: pageAlternates(lang, "/pricing") };
 }
 
 // The middle model is the highlighted one

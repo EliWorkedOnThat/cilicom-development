@@ -7,12 +7,13 @@ import CallToAction from "@/src/components/CallToAction";
 import { EMAIL } from "@/src/content/contact";
 import { getDictionary } from "@/src/i18n/dictionaries";
 import { hasLocale } from "@/src/i18n/config";
+import { pageAlternates } from "@/src/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/testimonials">): Promise<Metadata> {
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const t = getDictionary(lang).testimonialsPage;
-  return { title: t.metaTitle, description: t.metaDescription };
+  return { title: t.metaTitle, description: t.metaDescription, alternates: pageAlternates(lang, "/testimonials") };
 }
 
 export default async function TestimonialsPage({ params }: PageProps<"/[lang]/testimonials">) {

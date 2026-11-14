@@ -7,6 +7,7 @@ import Footer from "@/src/components/Footer";
 import { I18nProvider } from "@/src/i18n/I18nProvider";
 import { getDictionary } from "@/src/i18n/dictionaries";
 import { hasLocale, locales } from "@/src/i18n/config";
+import { pageAlternates, SITE_URL } from "@/src/seo";
 import "../globals.css";
 
 const outfit = Outfit({
@@ -31,7 +32,8 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
     title: { default: t.meta.title, template: "%s · cilicom" },
     description: t.meta.description,
     icons: { icon: "/cilicom-logo.jpg" },
-    alternates: { languages: { sq: "/sq", en: "/en" } },
+    metadataBase: new URL(SITE_URL),
+    alternates: pageAlternates(lang, ""),
   };
 }
 

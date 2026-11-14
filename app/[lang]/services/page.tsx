@@ -6,12 +6,13 @@ import CallToAction from "@/src/components/CallToAction";
 import { notFound } from "next/navigation";
 import { getDictionary } from "@/src/i18n/dictionaries";
 import { hasLocale } from "@/src/i18n/config";
+import { pageAlternates } from "@/src/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/services">): Promise<Metadata> {
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const t = getDictionary(lang).servicesPage;
-  return { title: t.metaTitle, description: t.metaDescription };
+  return { title: t.metaTitle, description: t.metaDescription, alternates: pageAlternates(lang, "/services") };
 }
 
 export default async function ServicesPage({ params }: PageProps<"/[lang]/services">) {

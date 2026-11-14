@@ -8,6 +8,7 @@ import Magnetic from "@/src/components/Magnetic";
 import CallToAction from "@/src/components/CallToAction";
 import { getDictionary } from "@/src/i18n/dictionaries";
 import { hasLocale, localize } from "@/src/i18n/config";
+import { pageAlternates } from "@/src/seo";
 
 type Content = ReturnType<typeof getDictionary>["academyPage"];
 
@@ -15,7 +16,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/projects/a
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const t = getDictionary(lang).academyPage;
-  return { title: t.metaTitle, description: t.metaDescription };
+  return { title: t.metaTitle, description: t.metaDescription, alternates: pageAlternates(lang, "/projects/academy") };
 }
 
 // Line icons (24×24, stroked) for the feature cards, keyed by `features[].icon`.
