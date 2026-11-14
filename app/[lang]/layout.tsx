@@ -7,7 +7,8 @@ import Footer from "@/src/components/Footer";
 import { I18nProvider } from "@/src/i18n/I18nProvider";
 import { getDictionary } from "@/src/i18n/dictionaries";
 import { hasLocale, locales } from "@/src/i18n/config";
-import { pageAlternates, SITE_URL } from "@/src/seo";
+import JsonLd from "@/src/components/JsonLd";
+import { SITE_NAME, SITE_URL, siteJsonLd } from "@/src/seo";
 import "../globals.css";
 
 const outfit = Outfit({
@@ -28,12 +29,20 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const t = getDictionary(lang);
+  // Site-wide defaults. Each page adds its own title, description, canonical and share tags (pageMetadata in src/seo.ts).
   return {
-    title: { default: t.meta.title, template: "%s · cilicom" },
+    title: { default: t.meta.title, template: `%s · ${SITE_NAME}` },
     description: t.meta.description,
+    applicationName: SITE_NAME,
+    publisher: SITE_NAME,
     icons: { icon: "/cilicom-logo.jpg" },
     metadataBase: new URL(SITE_URL),
-    alternates: pageAlternates(lang, ""),
+    // Let Google show large image previews and full-length snippets
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+    },
   };
 }
 
@@ -52,6 +61,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   return (
     <html lang={lang} className={`${outfit.variable} ${jetbrains.variable} antialiased`}>
       <body id="top" className="grain flex min-h-dvh flex-col">
+        <JsonLd data={siteJsonLd(lang)} />
         <I18nProvider lang={lang} t={t}>
           <SmoothScroll />
           <Nav />

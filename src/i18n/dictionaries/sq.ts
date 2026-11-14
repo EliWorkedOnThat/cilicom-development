@@ -1,9 +1,11 @@
 // Albanian copy. en.ts must match this shape exactly (checked by the Dictionary type).
 const sq = {
+  // Search results and link previews. Titles up to ~60 characters (page titles get " · cilicom" added),
+  // descriptions up to ~155, or Google cuts them off.
   meta: {
-    title: "cilicom — Softuer, automatizim dhe AI për biznesin tuaj",
+    title: "Zhvillim softueri, automatizim dhe AI në Shqipëri · cilicom",
     description:
-      "cilicom ndërton sisteme menaxhimi, aplikacione web, automatizime dhe zgjidhje AI të personalizuara — dhe i mirëmban ato pas lançimit.",
+      "cilicom është studio softueri në Shqipëri. Ndërtojmë sisteme menaxhimi, aplikacione web, automatizime dhe zgjidhje AI, dhe i mirëmbajmë edhe pas lançimit.",
   },
 
   nav: {
@@ -209,8 +211,9 @@ const sq = {
   },
 
   servicesPage: {
-    metaTitle: "Shërbimet",
-    metaDescription: "Sisteme menaxhimi, automatizim, aplikacione web, AI & LLM, aplikacione të personalizuara dhe mirëmbajtje.",
+    metaTitle: "Shërbime softueri, automatizimi dhe AI",
+    metaDescription:
+      "Sisteme menaxhimi (ERP, CRM), automatizim, aplikacione web, zgjidhje AI & LLM, aplikacione të personalizuara dhe mirëmbajtje, sipas nevojave të biznesit tuaj.",
     label: "Shërbimet",
     title: "Tetë mënyra si e çojmë biznesin tuaj përpara.",
     intro:
@@ -221,8 +224,9 @@ const sq = {
   },
 
   projectsPage: {
-    metaTitle: "Projektet",
-    metaDescription: "Shembuj të zgjidhjeve që cilicom ndërton për biznese të ndryshme.",
+    metaTitle: "Projekte dhe produkte softueri",
+    metaDescription:
+      "Produktet tona, platforma për akademi online dhe shtesa Eztemplate për Gmail, si dhe shembuj sistemesh për klinika, tregti, restorante dhe startup-e.",
     label: "Projektet",
     title: "Çfarë ndërtojmë, në praktikë.",
     intro:
@@ -290,7 +294,7 @@ const sq = {
   },
 
   academyPage: {
-    metaTitle: "Platforma për akademi",
+    metaTitle: "Platformë për akademi online me mësime live",
     metaDescription:
       "Platformë për akademi dhe qendra kursesh: mësime live, materiale, regjistrime, studentë dhe pagesa në një vend, në kompjuter dhe në telefon.",
     eyebrow: "Për akademi dhe qendra kursesh",
@@ -367,8 +371,9 @@ const sq = {
   },
 
   testimonialsPage: {
-    metaTitle: "Referencat",
-    metaDescription: "Çfarë thonë klientët për punën me cilicom.",
+    metaTitle: "Referencat e klientëve",
+    metaDescription:
+      "Çfarë thonë klientët për punën me cilicom, studio softueri në Shqipëri që ndërton sisteme menaxhimi, aplikacione web, automatizime dhe zgjidhje AI.",
     label: "Referencat",
     title: "Çfarë thonë klientët tanë.",
     intro: "Fjalët e bizneseve me të cilat kemi punuar.",
@@ -382,8 +387,9 @@ const sq = {
   },
 
   pricingPage: {
-    metaTitle: "Bashkëpunimi",
-    metaDescription: "Si punojmë dhe si e caktojmë koston: projekte me çmim fiks, partneritet mujor dhe mirëmbajtje.",
+    metaTitle: "Çmimet dhe mënyrat e bashkëpunimit",
+    metaDescription:
+      "Si i caktojmë çmimet e projekteve: projekte me çmim fiks, partneritet mujor dhe mirëmbajtje. Bisedë e parë falas dhe ofertë e qartë para se të fillojmë.",
     label: "Bashkëpunimi",
     title: "Mënyra të qarta për të punuar bashkë.",
     intro: "Asnjë kosto e fshehur. Para se të fillojmë, e dini saktësisht çfarë merrni, kur dhe me çfarë çmimi.",
@@ -435,8 +441,9 @@ const sq = {
   },
 
   aboutPage: {
-    metaTitle: "Rreth nesh",
-    metaDescription: "cilicom është një studio softueri që ndërton teknologji të personalizuar për biznese.",
+    metaTitle: "Rreth nesh: studio softueri në Shqipëri",
+    metaDescription:
+      "cilicom është studio softueri në Shqipëri që ndërton sisteme menaxhimi, automatizime, aplikacione web dhe zgjidhje AI, me një ekip nga ideja te mirëmbajtja.",
     label: "Rreth nesh",
     title: "Ndërtojmë softuerin që do të donim të përdornim vetë.",
     paragraphs: [
@@ -453,8 +460,9 @@ const sq = {
   },
 
   contactPage: {
-    metaTitle: "Kontakt",
-    metaDescription: "Na tregoni për projektin tuaj. Biseda e parë është falas.",
+    metaTitle: "Na kontaktoni për projektin tuaj",
+    metaDescription:
+      "Na tregoni për projektin tuaj dhe ju përgjigjemi brenda një dite pune. Biseda e parë është falas. Shkruani në team@cilicom.net ose plotësoni brief-in.",
     hero: {
       badge: "Pranojmë projekte të reja",
       title: "Le të flasim",

@@ -23,7 +23,8 @@ function Step({ n, title, hint, children }: { n: string; title: string; hint?: s
       <legend className="sr-only">{title}</legend>
       <div className="flex items-baseline gap-4" aria-hidden="true">
         <span className="font-mono text-sm text-sky">{n}</span>
-        <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">{title}</h2>
+        {/* h3: the steps sit under the brief's own h2 on the contact page */}
+        <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">{title}</h3>
       </div>
       {hint && <p className="mt-2 text-ink-mute md:pl-10">{hint}</p>}
       <div className="mt-7">{children}</div>

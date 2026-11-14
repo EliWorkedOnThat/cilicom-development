@@ -8,7 +8,8 @@ import Magnetic from "@/src/components/Magnetic";
 import CallToAction from "@/src/components/CallToAction";
 import { getDictionary } from "@/src/i18n/dictionaries";
 import { hasLocale, localize } from "@/src/i18n/config";
-import { pageAlternates } from "@/src/seo";
+import JsonLd from "@/src/components/JsonLd";
+import { academyJsonLd, breadcrumbJsonLd, faqJsonLd, pageMetadata } from "@/src/seo";
 
 type Content = ReturnType<typeof getDictionary>["academyPage"];
 
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/projects/a
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const t = getDictionary(lang).academyPage;
-  return { title: t.metaTitle, description: t.metaDescription, alternates: pageAlternates(lang, "/projects/academy") };
+  return pageMetadata(lang, "/projects/academy", { title: t.metaTitle, description: t.metaDescription });
 }
 
 // Line icons (24×24, stroked) for the feature cards, keyed by `features[].icon`.
@@ -145,9 +146,19 @@ function SectionHeading({ label, title }: { label: string; title: string }) {
 export default async function AcademyPage({ params }: PageProps<"/[lang]/projects/academy">) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const t = getDictionary(lang).academyPage;
+  const dict = getDictionary(lang);
+  const t = dict.academyPage;
+  const productName = dict.projectsPage.products.find((p) => p.href === "/projects/academy")?.title ?? t.metaTitle;
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd(lang, [
+          { name: dict.projectsPage.label, path: "/projects" },
+          { name: productName, path: "/projects/academy" },
+        ])}
+      />
+      <JsonLd data={academyJsonLd(lang)} />
+      <JsonLd data={faqJsonLd(t.faq)} />
       {/* Hero */}
       <section className="relative overflow-hidden bg-navy pt-[calc(7.5rem+env(safe-area-inset-top))] pb-24 md:pt-44 md:pb-32">
         <div aria-hidden="true" className="pointer-events-none absolute -top-40 left-1/2 h-[36rem] w-[70rem] -translate-x-1/2 rounded-full bg-sky/10 blur-[140px]" />

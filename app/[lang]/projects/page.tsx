@@ -8,13 +8,14 @@ import CallToAction from "@/src/components/CallToAction";
 import { notFound } from "next/navigation";
 import { getDictionary } from "@/src/i18n/dictionaries";
 import { hasLocale, localize } from "@/src/i18n/config";
-import { pageAlternates } from "@/src/seo";
+import JsonLd from "@/src/components/JsonLd";
+import { breadcrumbJsonLd, pageMetadata } from "@/src/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/projects">): Promise<Metadata> {
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const t = getDictionary(lang).projectsPage;
-  return { title: t.metaTitle, description: t.metaDescription, alternates: pageAlternates(lang, "/projects") };
+  return pageMetadata(lang, "/projects", { title: t.metaTitle, description: t.metaDescription });
 }
 
 // Card widths for the bento grid, in the same order as the ideas in the dictionary.
@@ -31,6 +32,7 @@ export default async function ProjectsPage({ params }: PageProps<"/[lang]/projec
   const t = dict.projectsPage;
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd(lang, [{ name: t.label, path: "/projects" }])} />
       <PageHeader
         label={t.label}
         title={t.title}
@@ -44,6 +46,7 @@ export default async function ProjectsPage({ params }: PageProps<"/[lang]/projec
               <SpotlightCard className="p-8 md:p-10">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-xs tracking-[0.15em] text-sky uppercase">{t.productLabel}</span>
+                  {/* Decorative: the h2 below already names the product */}
                   <Image src={p.icon} alt="" width={48} height={48} unoptimized={p.icon.endsWith(".svg")} className="rounded-xl" />
                 </div>
                 <h2 className="mt-10 text-2xl leading-tight font-semibold tracking-tight md:text-3xl">{p.title}</h2>

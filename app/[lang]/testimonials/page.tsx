@@ -7,13 +7,19 @@ import CallToAction from "@/src/components/CallToAction";
 import { EMAIL } from "@/src/content/contact";
 import { getDictionary } from "@/src/i18n/dictionaries";
 import { hasLocale } from "@/src/i18n/config";
-import { pageAlternates } from "@/src/seo";
+import JsonLd from "@/src/components/JsonLd";
+import { breadcrumbJsonLd, pageMetadata } from "@/src/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/testimonials">): Promise<Metadata> {
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const t = getDictionary(lang).testimonialsPage;
-  return { title: t.metaTitle, description: t.metaDescription, alternates: pageAlternates(lang, "/testimonials") };
+  return {
+    ...pageMetadata(lang, "/testimonials", { title: t.metaTitle, description: t.metaDescription }),
+    // Keep the empty "coming soon" page out of search results until there's a real testimonial
+    // (it's also left out of the sitemap). Links on it are still followed.
+    ...(t.items.length === 0 && { robots: { index: false, follow: true } }),
+  };
 }
 
 export default async function TestimonialsPage({ params }: PageProps<"/[lang]/testimonials">) {
@@ -23,6 +29,7 @@ export default async function TestimonialsPage({ params }: PageProps<"/[lang]/te
 
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd(lang, [{ name: t.label, path: "/testimonials" }])} />
       <PageHeader label={t.label} title={t.title} intro={t.intro} />
 
       <section className="bg-navy pb-28">

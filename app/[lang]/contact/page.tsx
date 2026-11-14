@@ -5,13 +5,14 @@ import Reveal from "@/src/components/Reveal";
 import { notFound } from "next/navigation";
 import { getDictionary } from "@/src/i18n/dictionaries";
 import { hasLocale } from "@/src/i18n/config";
-import { pageAlternates } from "@/src/seo";
+import JsonLd from "@/src/components/JsonLd";
+import { breadcrumbJsonLd, pageMetadata } from "@/src/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/contact">): Promise<Metadata> {
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const t = getDictionary(lang).contactPage;
-  return { title: t.metaTitle, description: t.metaDescription, alternates: pageAlternates(lang, "/contact") };
+  return pageMetadata(lang, "/contact", { title: t.metaTitle, description: t.metaDescription });
 }
 
 export default async function ContactPage({ params }: PageProps<"/[lang]/contact">) {
@@ -21,6 +22,7 @@ export default async function ContactPage({ params }: PageProps<"/[lang]/contact
   const t = dict.contactPage;
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd(lang, [{ name: dict.nav.contact, path: "/contact" }])} />
       <ContactHero />
 
       <section id="brief" className="scroll-mt-20 bg-navy pt-12 pb-28 md:pb-36">
@@ -42,7 +44,7 @@ export default async function ContactPage({ params }: PageProps<"/[lang]/contact
 
       <section className="border-t border-line bg-navy-deep py-24 md:py-32">
         <div className="mx-auto max-w-7xl px-5 md:px-10">
-          <p className="font-mono text-xs tracking-[0.2em] text-sky uppercase">{t.nextTitle}</p>
+          <h2 className="font-mono text-xs tracking-[0.2em] text-sky uppercase">{t.nextTitle}</h2>
           <div className="relative mt-14">
             <div aria-hidden="true" className="absolute top-[1.375rem] right-0 left-0 hidden h-px bg-linear-to-r from-sky via-line to-line md:block" />
             <ol className="relative grid gap-12 md:grid-cols-3 md:gap-8">

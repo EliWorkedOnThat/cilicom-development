@@ -7,13 +7,14 @@ import CallToAction from "@/src/components/CallToAction";
 import { notFound } from "next/navigation";
 import { getDictionary } from "@/src/i18n/dictionaries";
 import { hasLocale, localize } from "@/src/i18n/config";
-import { pageAlternates } from "@/src/seo";
+import JsonLd from "@/src/components/JsonLd";
+import { breadcrumbJsonLd, faqJsonLd, pageMetadata } from "@/src/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/pricing">): Promise<Metadata> {
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const t = getDictionary(lang).pricingPage;
-  return { title: t.metaTitle, description: t.metaDescription, alternates: pageAlternates(lang, "/pricing") };
+  return pageMetadata(lang, "/pricing", { title: t.metaTitle, description: t.metaDescription });
 }
 
 // The middle model is the highlighted one
@@ -26,6 +27,8 @@ export default async function PricingPage({ params }: PageProps<"/[lang]/pricing
   const t = dict.pricingPage;
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd(lang, [{ name: t.label, path: "/pricing" }])} />
+      <JsonLd data={faqJsonLd(t.faqs)} />
       <PageHeader
         label={t.label}
         title={t.title}

@@ -6,13 +6,14 @@ import CallToAction from "@/src/components/CallToAction";
 import { notFound } from "next/navigation";
 import { getDictionary } from "@/src/i18n/dictionaries";
 import { hasLocale } from "@/src/i18n/config";
-import { pageAlternates } from "@/src/seo";
+import JsonLd from "@/src/components/JsonLd";
+import { breadcrumbJsonLd, pageMetadata } from "@/src/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/about">): Promise<Metadata> {
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const t = getDictionary(lang).aboutPage;
-  return { title: t.metaTitle, description: t.metaDescription, alternates: pageAlternates(lang, "/about") };
+  return pageMetadata(lang, "/about", { title: t.metaTitle, description: t.metaDescription });
 }
 
 export default async function AboutPage({ params }: PageProps<"/[lang]/about">) {
@@ -22,6 +23,7 @@ export default async function AboutPage({ params }: PageProps<"/[lang]/about">) 
   const t = dict.aboutPage;
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd(lang, [{ name: t.label, path: "/about" }])} />
       <PageHeader
         label={t.label}
         title={t.title}
@@ -54,11 +56,11 @@ export default async function AboutPage({ params }: PageProps<"/[lang]/about">) 
 
       <section className="border-t border-line bg-navy py-28">
         <div className="mx-auto max-w-7xl px-5 md:px-10">
-          <p className="font-mono text-xs tracking-[0.2em] text-sky uppercase">{t.beliefsTitle}</p>
+          <h2 className="font-mono text-xs tracking-[0.2em] text-sky uppercase">{t.beliefsTitle}</h2>
           <div className="mt-12 grid gap-12 md:grid-cols-3">
             {t.beliefs.map((b) => (
               <div key={b.title}>
-                <Reveal as="h2" className="text-3xl leading-tight font-semibold tracking-tight">
+                <Reveal as="h3" className="text-3xl leading-tight font-semibold tracking-tight">
                   {b.title}
                 </Reveal>
                 <p className="mt-4 text-lg leading-relaxed text-ink-soft">{b.body}</p>

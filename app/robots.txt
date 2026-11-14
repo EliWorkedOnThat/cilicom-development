@@ -1,0 +1,30 @@
+#
+#          _  _  _
+#     ___ (_)| |(_)  ___   ___   _ __ ___
+#    / __|| || || | / __| / _ \ | '_ ` _ \
+#   | (__ | || || || (__ | (_) || | | | | |
+#    \___||_||_||_| \___| \___/ |_| |_| |_|
+#
+#  cilicom, a software studio in Albania.
+#
+#  We build management systems, automations, web applications and
+#  AI solutions for businesses, and look after them long after launch.
+#
+#  Ndërtojmë sisteme menaxhimi, automatizime, aplikacione web dhe
+#  zgjidhje AI për biznese, dhe kujdesemi për to edhe pas lançimit.
+#
+#  Our products:
+#    Academy platform   https://cilicom.net/en/projects/academy
+#    Eztemplate         https://cilicom.net/eztemplate/
+#
+#  A person reading robots.txt is our kind of person.
+#  Say hello: team@cilicom.net  ·  instagram.com/cilicom.al
+#
+
+# Every page is open to every crawler, search engines and AI assistants alike.
+# Nothing on this site is hidden, so there is nothing to disallow.
+User-agent: *
+Allow: /
+
+# Every page in Albanian and English, each linked to its translation
+Sitemap: https://cilicom.net/sitemap.xml

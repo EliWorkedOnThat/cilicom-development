@@ -1,25 +1,29 @@
 import type { MetadataRoute } from "next";
-import { locales } from "@/src/i18n/config";
+import { defaultLocale, locales } from "@/src/i18n/config";
+import { getDictionary } from "@/src/i18n/dictionaries";
 import { SITE_URL } from "@/src/seo";
+
+// The testimonials page is noindex while it's empty (see its generateMetadata), so it joins the sitemap with its first testimonial
+const hasTestimonials = getDictionary(defaultLocale).testimonialsPage.items.length > 0;
 
 // Pages that exist in every language. Bump `updated` when a page's content changes.
 const pages = [
-  { path: "", updated: "2026-10-31", changeFrequency: "monthly", priority: 1 },
-  { path: "/services", updated: "2026-10-31", changeFrequency: "monthly", priority: 0.9 },
-  { path: "/projects", updated: "2026-11-11", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/projects/academy", updated: "2026-11-11", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/testimonials", updated: "2026-11-08", changeFrequency: "monthly", priority: 0.6 },
-  { path: "/pricing", updated: "2026-10-31", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/about", updated: "2026-10-31", changeFrequency: "yearly", priority: 0.6 },
-  { path: "/contact", updated: "2026-10-31", changeFrequency: "yearly", priority: 0.8 },
+  { path: "", updated: "2026-11-14", changeFrequency: "monthly", priority: 1 },
+  { path: "/services", updated: "2026-11-14", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/projects", updated: "2026-11-14", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/projects/academy", updated: "2026-11-14", changeFrequency: "monthly", priority: 0.7 },
+  ...(hasTestimonials ? [{ path: "/testimonials", updated: "2026-11-14", changeFrequency: "monthly", priority: 0.6 } as const] : []),
+  { path: "/pricing", updated: "2026-11-14", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/about", updated: "2026-11-14", changeFrequency: "yearly", priority: 0.6 },
+  { path: "/contact", updated: "2026-11-14", changeFrequency: "yearly", priority: 0.8 },
 ] as const;
 
 // The static Eztemplate site in public/eztemplate (English only, no language versions)
 const staticPages = [
-  { path: "/eztemplate/", updated: "2026-11-08", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/eztemplate/terms.html", updated: "2026-11-08", changeFrequency: "yearly", priority: 0.2 },
-  { path: "/eztemplate/privacy.html", updated: "2026-11-08", changeFrequency: "yearly", priority: 0.2 },
-  { path: "/eztemplate/refund.html", updated: "2026-11-08", changeFrequency: "yearly", priority: 0.2 },
+  { path: "/eztemplate/", updated: "2026-11-14", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/eztemplate/terms.html", updated: "2026-11-14", changeFrequency: "yearly", priority: 0.2 },
+  { path: "/eztemplate/privacy.html", updated: "2026-11-14", changeFrequency: "yearly", priority: 0.2 },
+  { path: "/eztemplate/refund.html", updated: "2026-11-14", changeFrequency: "yearly", priority: 0.2 },
 ] as const;
 
 // One entry per page and language, each listing its translations (same links as pageAlternates in src/seo.ts)

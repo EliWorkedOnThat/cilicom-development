@@ -6,13 +6,14 @@ import CallToAction from "@/src/components/CallToAction";
 import { notFound } from "next/navigation";
 import { getDictionary } from "@/src/i18n/dictionaries";
 import { hasLocale } from "@/src/i18n/config";
-import { pageAlternates } from "@/src/seo";
+import JsonLd from "@/src/components/JsonLd";
+import { breadcrumbJsonLd, pageMetadata, servicesJsonLd } from "@/src/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/services">): Promise<Metadata> {
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const t = getDictionary(lang).servicesPage;
-  return { title: t.metaTitle, description: t.metaDescription, alternates: pageAlternates(lang, "/services") };
+  return pageMetadata(lang, "/services", { title: t.metaTitle, description: t.metaDescription });
 }
 
 export default async function ServicesPage({ params }: PageProps<"/[lang]/services">) {
@@ -23,6 +24,8 @@ export default async function ServicesPage({ params }: PageProps<"/[lang]/servic
   const services = dict.services;
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd(lang, [{ name: t.label, path: "/services" }])} />
+      <JsonLd data={servicesJsonLd(lang)} />
       <PageHeader
         label={t.label}
         title={t.title}

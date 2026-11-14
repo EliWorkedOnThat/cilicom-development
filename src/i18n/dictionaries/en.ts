@@ -1,10 +1,12 @@
 import type { Dictionary } from "./sq";
 
 const en: Dictionary = {
+  // Search results and link previews. Titles up to ~60 characters (page titles get " · cilicom" added),
+  // descriptions up to ~155, or Google cuts them off.
   meta: {
-    title: "cilicom — Software, automation and AI for your business",
+    title: "Software development, automation & AI in Albania · cilicom",
     description:
-      "cilicom builds management systems, web apps, automations and custom AI solutions — and keeps them running after launch.",
+      "cilicom is a software studio in Albania. We build management systems, web apps, automations and custom AI solutions, and look after them long after launch.",
   },
 
   nav: {
@@ -210,8 +212,9 @@ const en: Dictionary = {
   },
 
   servicesPage: {
-    metaTitle: "Services",
-    metaDescription: "Management systems, automation, web apps, AI & LLM, custom applications and maintenance.",
+    metaTitle: "Software, automation & AI services",
+    metaDescription:
+      "Management systems (ERP, CRM), automation, web applications, AI & LLM solutions, custom apps and maintenance, built around the way your business works.",
     label: "Services",
     title: "Eight ways we move your business forward.",
     intro:
@@ -222,8 +225,9 @@ const en: Dictionary = {
   },
 
   projectsPage: {
-    metaTitle: "Projects",
-    metaDescription: "Examples of the solutions cilicom builds for different businesses.",
+    metaTitle: "Projects and software products",
+    metaDescription:
+      "Our products, an online academy platform and the Eztemplate Gmail extension, plus examples of systems we build for clinics, retail, restaurants and startups.",
     label: "Projects",
     title: "What we build, in practice.",
     intro: "Some typical examples of the solutions we build for different sectors. Full case studies are coming soon.",
@@ -289,7 +293,7 @@ const en: Dictionary = {
   },
 
   academyPage: {
-    metaTitle: "Academy platform",
+    metaTitle: "Online academy platform with live lessons",
     metaDescription:
       "A platform for academies and course centres: live lessons, materials, recordings, students and payments in one place, on computer and phone.",
     eyebrow: "For academies and course centres",
@@ -366,8 +370,9 @@ const en: Dictionary = {
   },
 
   testimonialsPage: {
-    metaTitle: "Testimonials",
-    metaDescription: "What clients say about working with cilicom.",
+    metaTitle: "Client testimonials",
+    metaDescription:
+      "What clients say about working with cilicom, a software studio in Albania that builds management systems, web apps, automations and AI solutions.",
     label: "Testimonials",
     title: "What our clients say.",
     intro: "In the words of the businesses we've worked with.",
@@ -381,8 +386,9 @@ const en: Dictionary = {
   },
 
   pricingPage: {
-    metaTitle: "Working together",
-    metaDescription: "How we work and how we price: fixed-price projects, monthly partnerships and maintenance.",
+    metaTitle: "Pricing and ways to work together",
+    metaDescription:
+      "How we price software projects: fixed-price builds, monthly partnerships and maintenance plans. Free first conversation and a clear quote before we start.",
     label: "Working together",
     title: "Clear ways to work together.",
     intro: "No hidden costs. Before we start, you know exactly what you get, when, and at what price.",
@@ -434,8 +440,9 @@ const en: Dictionary = {
   },
 
   aboutPage: {
-    metaTitle: "About",
-    metaDescription: "cilicom is a software studio building custom technology for businesses.",
+    metaTitle: "About us: a software studio in Albania",
+    metaDescription:
+      "cilicom is a software studio in Albania that builds custom management systems, automations, web apps and AI solutions, with one team from idea to maintenance.",
     label: "About",
     title: "We build the software we'd want to use ourselves.",
     paragraphs: [
@@ -452,8 +459,9 @@ const en: Dictionary = {
   },
 
   contactPage: {
-    metaTitle: "Contact",
-    metaDescription: "Tell us about your project. The first conversation is free.",
+    metaTitle: "Contact us about your project",
+    metaDescription:
+      "Tell us about your project and get a reply within one working day. The first conversation is free. Email team@cilicom.net or fill in the two-minute brief.",
     hero: {
       badge: "Taking on new projects",
       title: "Let's talk",
